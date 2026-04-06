@@ -456,22 +456,41 @@ function fetchMeteo(){
   if(!date){alert('Sélectionne une date.');return;}
   var zone=document.getElementById('meteo-zone');
   zone.innerHTML='<div style="font-size:0.7rem;color:#aaa;margin-bottom:8px;">🔄 Récupération…</div>';
-  var url='https://archive-api.open-meteo.com/v1/archive?latitude=48.28&longitude=4.37&start_date='+date+'&end_date='+date+'&daily=temperature_2m_mean,temperature_2m_max,wind_speed_10m_max,weather_code,pressure_msl_mean&timezone=Europe/Paris';
-  fetch(url).then(function(r){return r.json();}).then(function(data){
-    var temp=Math.round(data.daily.temperature_2m_mean[0]);
-    var tempMax=Math.round(data.daily.temperature_2m_max[0]);
-    var vent=Math.round(data.daily.wind_speed_10m_max[0]);
-    var code=data.daily.weather_code[0];
-    var pres=data.daily.pressure_msl_mean?Math.round(data.daily.pressure_msl_mean[0]):null;
-    var cond=wmoText(code);
-    document.getElementById('f-tair').value=temp;
-    document.getElementById('f-vent').value=vent;
-    document.getElementById('f-ciel').value=cond;
-    if(pres) document.getElementById('f-pression').value=pres;
-    zone.innerHTML='<div class="meteo-result">'+wmoEmoji(code)+' '+cond+' · '+temp+'°C (max '+tempMax+'°C) · '+vent+' km/h'+(pres?' · '+pres+' hPa':'')+'</div>';
-  }).catch(function(){
-    zone.innerHTML='<div style="font-size:0.7rem;color:#c05050;margin-bottom:8px;">⚠️ Météo indisponible — renseigne manuellement</div>';
-  });
+
+  var today=new Date().toISOString().split('T')[0];
+  var diffDays=Math.floor((new Date(today)-new Date(date))/(1000*60*60*24));
+
+  var url;
+  if(diffDays<=5){
+    // Données récentes ou futures → forecast
+    url='https://api.open-meteo.com/v1/forecast?latitude=48.28&longitude=4.37&start_date='+date+'&end_date='+date+'&daily=temperature_2m_mean,temperature_2m_max,wind_speed_10m_max,weather_code,pressure_msl_mean&timezone=Europe/Paris';
+  } else {
+    // Données historiques → archive
+    url='https://archive-api.open-meteo.com/v1/archive?latitude=48.28&longitude=4.37&start_date='+date+'&end_date='+date+'&daily=temperature_2m_mean,temperature_2m_max,wind_speed_10m_max,weather_code,pressure_msl_mean&timezone=Europe/Paris';
+  }
+
+  fetch(url)
+    .then(function(r){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    })
+    .then(function(data){
+      if(!data.daily||!data.daily.temperature_2m_mean) throw new Error('Données manquantes');
+      var temp=Math.round(data.daily.temperature_2m_mean[0]);
+      var tempMax=Math.round(data.daily.temperature_2m_max[0]);
+      var vent=Math.round(data.daily.wind_speed_10m_max[0]);
+      var code=data.daily.weather_code[0];
+      var pres=data.daily.pressure_msl_mean?Math.round(data.daily.pressure_msl_mean[0]):null;
+      var cond=wmoText(code);
+      document.getElementById('f-tair').value=temp;
+      document.getElementById('f-vent').value=vent;
+      document.getElementById('f-ciel').value=cond;
+      if(pres) document.getElementById('f-pression').value=pres;
+      zone.innerHTML='<div class="meteo-result">'+wmoEmoji(code)+' '+cond+' · '+temp+'°C (max '+tempMax+'°C) · '+vent+' km/h'+(pres?' · '+pres+' hPa':'')+'</div>';
+    })
+    .catch(function(err){
+      zone.innerHTML='<div style="font-size:0.7rem;color:#c05050;margin-bottom:8px;">⚠️ Météo indisponible pour cette date — renseigne manuellement</div>';
+    });
 }
 
 function wmoEmoji(c){ if(c===0)return'☀️'; if(c<=2)return'⛅'; if(c<=3)return'☁️'; if(c<=49)return'🌫️'; if(c<=82)return'🌧️'; return'⛈️'; }
