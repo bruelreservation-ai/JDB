@@ -17,7 +17,7 @@ body { background:#f5f8fa; color:#111; font-family:system-ui,-apple-system,sans-
 .sync-status { font-size:0.55rem; letter-spacing:2px; color:#aaa; margin-top:4px; }
 
 .nav { display:flex; gap:6px; margin-bottom:16px; }
-.nav-btn { flex:1; padding:9px 4px; border-radius:8px; border:1px solid #ddd; background:#fff; color:#555; font-size:0.65rem; font-weight:800; letter-spacing:1px; cursor:pointer; text-transform:uppercase; text-align:center; }
+.nav-btn { flex:1; padding:9px 4px; border-radius:8px; border:1px solid #ddd; background:#fff; color:#555; font-size:0.6rem; font-weight:800; letter-spacing:0.5px; cursor:pointer; text-transform:uppercase; text-align:center; }
 .nav-btn.active { background:#1a6a9a; border-color:#1a6a9a; color:#fff; }
 
 .card { background:#fff; border:1px solid #ddd; border-radius:12px; padding:14px; margin-bottom:12px; }
@@ -37,25 +37,27 @@ textarea.inp { resize:vertical; min-height:60px; }
 .fetch-btn { padding:7px 12px; border-radius:7px; border:1px solid #1a6a9a; background:#fff; color:#1a6a9a; font-size:0.68rem; font-weight:800; cursor:pointer; white-space:nowrap; }
 .meteo-result { background:#f0f7ff; border:1px solid #c8dff0; border-radius:8px; padding:9px 12px; margin-bottom:10px; font-size:0.8rem; font-weight:700; color:#1a6a9a; }
 
-/* MORALE — Fix: 5 boutons avec bon ordre */
+/* MORALE */
 .morale-row { display:flex; gap:10px; margin-bottom:8px; }
 .morale-btn { font-size:1.6rem; cursor:pointer; opacity:0.35; transition:all .15s; border:none; background:none; padding:2px; }
 .morale-btn.active { opacity:1; transform:scale(1.2); }
 
-/* CAPTURES DU JOUR */
-.esp-counter { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
-.esp-label { font-size:0.88rem; font-weight:800; min-width:90px; }
-.ctr { display:flex; align-items:center; gap:8px; }
-.ctr-btn { width:30px; height:30px; border-radius:6px; border:1px solid #ddd; background:#f5f5f5; color:#555; cursor:pointer; font-size:1.1rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+/* FIX: CAPTURES DU JOUR en 2 colonnes */
+.cap-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.esp-counter { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; background:#fafafa; border:1px solid #eee; border-radius:8px; }
+.esp-label { font-size:0.82rem; font-weight:800; }
+.ctr { display:flex; align-items:center; gap:6px; }
+.ctr-btn { width:28px; height:28px; border-radius:6px; border:1px solid #ddd; background:#f5f5f5; color:#555; cursor:pointer; font-size:1.1rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .ctr-btn:active { background:#e0e0e0; }
-.ctr-val { font-size:1.4rem; font-weight:900; min-width:28px; text-align:center; color:#1a6a9a; }
+.ctr-val { font-size:1.3rem; font-weight:900; min-width:24px; text-align:center; color:#1a6a9a; }
 
-/* BEAUX POISSONS — colonnes avec joueur */
-.bp-headers { display:grid; grid-template-columns:75px 90px 1fr 45px 28px; gap:4px; margin-bottom:4px; }
-.bp-headers span { font-size:0.56rem; font-weight:700; letter-spacing:1px; color:#bbb; text-transform:uppercase; }
-.bp-row { display:grid; grid-template-columns:75px 90px 1fr 45px 28px; gap:4px; align-items:center; margin-bottom:6px; }
-.bp-row .sel, .bp-row .inp { padding:6px 7px; font-size:0.8rem; }
-.bp-del { width:26px; height:26px; border-radius:6px; border:1px solid #fcc; background:#fff5f5; color:#c05050; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+/* BEAUX POISSONS — FIX: Espèce + Joueur + Lieu + Fond + Leurre + Taille */
+.bp-form { background:#fafafa; border:1px solid #eee; border-radius:8px; padding:9px; margin-bottom:8px; }
+.bp-form-row { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:6px; }
+.bp-form-row.g3 { grid-template-columns:1fr 1fr 1fr; }
+.bp-form-row label { font-size:0.52rem; font-weight:700; letter-spacing:1px; color:#bbb; text-transform:uppercase; display:block; margin-bottom:2px; }
+.bp-form-row .inp, .bp-form-row .sel { padding:5px 7px; font-size:0.78rem; }
+.bp-del { width:100%; padding:5px; border-radius:6px; border:1px solid #fcc; background:#fff5f5; color:#c05050; cursor:pointer; font-size:0.68rem; font-weight:700; margin-top:4px; }
 .add-btn { width:100%; padding:8px; border-radius:8px; border:1px dashed #1a6a9a; background:#f0f7ff; color:#1a6a9a; font-size:0.72rem; font-weight:800; cursor:pointer; margin-top:4px; }
 
 /* LIEU AUTRE */
@@ -92,15 +94,14 @@ textarea.inp { resize:vertical; min-height:60px; }
 .s-nb { text-align:right; min-width:36px; }
 .s-nb-val { font-size:1.2rem; font-weight:900; color:#1a6a9a; line-height:1; }
 .s-nb-lbl { font-size:0.52rem; color:#aaa; }
-
 .sortie-detail { padding:0 13px 13px; display:none; border-top:1px solid #f0f0f0; }
 .sortie-detail.open { display:block; }
 .d-section { margin-top:10px; }
 .d-title { font-size:0.58rem; font-weight:800; letter-spacing:2px; color:#bbb; text-transform:uppercase; margin-bottom:5px; }
 .d-meteo { background:#f0f7ff; border-radius:7px; padding:7px 11px; font-size:0.78rem; color:#1a6a9a; font-weight:600; }
 .d-table { width:100%; border-collapse:collapse; }
-.d-table th { font-size:0.56rem; letter-spacing:1px; color:#bbb; font-weight:700; padding:4px 7px; background:#f8f8f8; border-bottom:1px solid #eee; text-align:left; text-transform:uppercase; }
-.d-table td { padding:6px 7px; border-bottom:1px solid #f5f5f5; font-size:0.78rem; color:#333; }
+.d-table th { font-size:0.52rem; letter-spacing:1px; color:#bbb; font-weight:700; padding:4px 6px; background:#f8f8f8; border-bottom:1px solid #eee; text-align:left; text-transform:uppercase; }
+.d-table td { padding:5px 6px; border-bottom:1px solid #f5f5f5; font-size:0.75rem; color:#333; }
 .d-table tr:last-child td { border-bottom:none; }
 .d-leurre { display:inline-block; padding:3px 9px; border-radius:10px; background:#fff8d0; border:1px solid #e8d060; color:#8a6800; font-size:0.72rem; font-weight:700; margin-top:6px; }
 .d-notes { background:#fffdf0; border:1px solid #e8d880; border-radius:7px; padding:7px 11px; font-size:0.78rem; color:#555; line-height:1.5; margin-top:8px; }
@@ -114,22 +115,58 @@ textarea.inp { resize:vertical; min-height:60px; }
 .stat-val { font-size:1.8rem; font-weight:900; color:#1a6a9a; line-height:1; }
 .stat-lbl { font-size:0.58rem; color:#aaa; letter-spacing:2px; margin-top:2px; text-transform:uppercase; }
 .best-row { background:#fff; border:1px solid #ddd; border-radius:10px; padding:11px 13px; margin-bottom:7px; display:flex; align-items:center; gap:10px; }
-.best-emoji { font-size:1.5rem; }
+.best-emoji { font-size:1.5rem; flex-shrink:0; }
 .best-val { font-size:0.92rem; font-weight:900; color:#111; }
 .best-sub { font-size:0.62rem; color:#aaa; margin-top:1px; }
-/* Records par espèce */
 .record-row { background:#fff; border:1px solid #ddd; border-radius:10px; padding:10px 13px; margin-bottom:7px; }
 .record-esp { font-size:0.68rem; font-weight:800; letter-spacing:2px; color:#888; text-transform:uppercase; margin-bottom:6px; }
 .record-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; }
 .record-item { text-align:center; }
 .record-item-val { font-size:1.1rem; font-weight:900; color:#1a6a9a; }
 .record-item-lbl { font-size:0.52rem; color:#aaa; letter-spacing:1px; text-transform:uppercase; }
-/* Tendances */
 .trend-card { background:#fff; border:1px solid #ddd; border-radius:10px; padding:11px 13px; margin-bottom:7px; }
 .trend-esp { font-size:0.68rem; font-weight:800; color:#333; margin-bottom:4px; }
 .trend-bar-wrap { background:#f0f0f0; border-radius:4px; height:8px; margin:4px 0; overflow:hidden; }
-.trend-bar { height:8px; border-radius:4px; background:#1a6a9a; transition:width .4s; }
+.trend-bar { height:8px; border-radius:4px; background:#1a6a9a; }
 .trend-lbl { display:flex; justify-content:space-between; font-size:0.58rem; color:#aaa; }
+
+/* ── PRÉPARATION ── */
+.prep-slot { background:#fff; border:1px solid #ddd; border-radius:12px; margin-bottom:14px; overflow:hidden; }
+.prep-slot.expired { opacity:0.55; }
+.prep-slot-head { display:flex; align-items:center; gap:10px; padding:12px 14px; background:#f8f8f8; border-bottom:1px solid #eee; }
+.prep-slot-num { width:28px; height:28px; border-radius:50%; background:#1a6a9a; color:#fff; font-size:0.7rem; font-weight:900; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.prep-slot-title { font-size:0.78rem; font-weight:800; color:#333; flex:1; }
+.prep-expired-badge { font-size:0.6rem; color:#c05050; font-weight:700; background:#fff0f0; border:1px solid #fcc; padding:2px 8px; border-radius:10px; }
+.prep-reset-btn { font-size:0.6rem; color:#aaa; background:none; border:1px solid #ddd; border-radius:6px; padding:3px 8px; cursor:pointer; }
+.prep-slot-body { padding:12px 14px; }
+.prep-meteo-box { background:#f0f7ff; border:1px solid #c8dff0; border-radius:8px; padding:10px 12px; margin:10px 0; }
+.prep-meteo-main { font-size:1rem; font-weight:900; color:#1a6a9a; }
+.prep-meteo-detail { font-size:0.72rem; color:#555; margin-top:3px; }
+.prep-fiabilite { display:inline-block; font-size:0.6rem; font-weight:800; padding:2px 8px; border-radius:10px; margin-top:5px; }
+.prep-fiabilite.green { background:#e8f5e8; color:#2a7a2a; border:1px solid #a8d8a8; }
+.prep-fiabilite.yellow { background:#fff8d0; color:#8a6800; border:1px solid #e8d060; }
+.prep-fiabilite.red { background:#fff0e0; color:#c05050; border:1px solid #f0c8a0; }
+.prep-equip { background:#fffdf0; border:1px solid #e8d880; border-radius:8px; padding:8px 12px; margin:8px 0; font-size:0.75rem; color:#555; line-height:1.7; }
+.prep-refresh-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.prep-refresh-btn { padding:5px 11px; border-radius:6px; border:1px solid #1a6a9a; background:#fff; color:#1a6a9a; font-size:0.62rem; font-weight:800; cursor:pointer; }
+.prep-refresh-time { font-size:0.58rem; color:#aaa; }
+.prep-histo-box { background:#f8f8f8; border:1px solid #eee; border-radius:8px; padding:9px 12px; margin-top:8px; }
+.prep-histo-title { font-size:0.6rem; font-weight:800; letter-spacing:2px; color:#aaa; text-transform:uppercase; margin-bottom:7px; }
+.prep-reco { margin-bottom:8px; }
+.prep-reco-label { font-size:0.6rem; font-weight:800; color:#888; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+.prep-reco-items { display:flex; flex-wrap:wrap; gap:4px; }
+.prep-tag { padding:3px 9px; border-radius:10px; font-size:0.72rem; font-weight:700; background:#f0f7ff; color:#1a6a9a; border:1px solid #c8dff0; }
+.prep-tag.spot { background:#f0fff0; color:#2a7a2a; border-color:#a8d8a8; }
+.prep-tag.fond { background:#fff8f0; color:#a05020; border-color:#f0c8a0; }
+.prep-sortie-sim { background:#fff; border:1px solid #ddd; border-radius:7px; padding:8px 10px; margin-bottom:5px; cursor:pointer; }
+.prep-sortie-sim:hover { background:#f8f8f8; }
+.prep-sortie-sim-date { font-size:0.75rem; font-weight:800; color:#111; }
+.prep-sortie-sim-detail { font-size:0.65rem; color:#888; margin-top:2px; }
+.prep-no-data { font-size:0.72rem; color:#aaa; text-align:center; padding:12px 0; font-style:italic; }
+.prep-stat-row { display:flex; gap:8px; margin-bottom:8px; }
+.prep-stat { flex:1; text-align:center; background:#fff; border:1px solid #eee; border-radius:7px; padding:7px; }
+.prep-stat-val { font-size:1.2rem; font-weight:900; color:#1a6a9a; }
+.prep-stat-lbl { font-size:0.52rem; color:#aaa; text-transform:uppercase; letter-spacing:1px; }
 
 /* PARSEUR */
 .parser-area { width:100%; min-height:120px; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:0.8rem; font-family:system-ui,-apple-system,sans-serif; outline:none; background:#fafafa; resize:vertical; margin-bottom:10px; }
@@ -156,6 +193,7 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
   <div class="nav-btn active" onclick="showTab('new')" id="tab-new">✏️ Nouvelle</div>
   <div class="nav-btn" onclick="showTab('histo')" id="tab-histo">📚 Historique</div>
   <div class="nav-btn" onclick="showTab('stats')" id="tab-stats">📊 Stats</div>
+  <div class="nav-btn" onclick="showTab('prep')" id="tab-prep">🗺️ Prépa</div>
   <div class="nav-btn" onclick="showTab('import')" id="tab-import">📥 Import</div>
 </div>
 
@@ -171,11 +209,9 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
     <div class="g2">
       <div class="form-row">
         <label>Date</label>
-        <!-- FIX: onblur + onchange pour fermer le picker sur PC -->
         <input type="date" class="inp" id="f-date"
           onchange="onDateChange(); this.blur();"
-          onkeydown="if(event.key==='Enter'||event.key==='Tab'){this.blur();onDateChange();}"
-        />
+          onkeydown="if(event.key==='Enter'||event.key==='Tab'){this.blur();onDateChange();}"/>
       </div>
       <div class="form-row"><label>Lac</label>
         <select class="sel" id="f-lac" onchange="updateLieux()">
@@ -192,10 +228,9 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
 
   <div class="card">
     <div class="card-title">🌤️ Météo &amp; Eau</div>
-    <!-- FIX: Bouton fetch météo — T° air, vent, pression auto / ciel manuel -->
     <div class="fetch-row">
       <button class="fetch-btn" onclick="fetchMeteo()">🌐 Récupérer météo</button>
-      <span style="font-size:0.65rem;color:#aaa;">T°, vent, pression automatiques · ciel à renseigner</span>
+      <span style="font-size:0.65rem;color:#aaa;">T°, vent, pression auto · ciel manuel</span>
     </div>
     <div id="meteo-zone"></div>
     <div class="g3">
@@ -205,9 +240,19 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
     </div>
     <div class="g2">
       <div class="form-row"><label>T° eau (sondeur)</label><input type="number" class="inp" id="f-teau" placeholder="°C"/></div>
-      <!-- FIX: Ciel toujours manuel -->
-      <div class="form-row"><label>Ciel (manuel)</label>
-        <select class="sel" id="f-ciel">
+    </div>
+    <!-- FIX: Ciel scindé matin / après-midi -->
+    <div class="g2">
+      <div class="form-row"><label>☀️ Ciel matin</label>
+        <select class="sel" id="f-ciel-matin">
+          <option value="">—</option>
+          <option>☀️ Ensoleillé</option><option>⛅ Partiellement nuageux</option>
+          <option>☁️ Couvert</option><option>🌧️ Pluvieux</option>
+          <option>⛈️ Orageux</option><option>🌫️ Brumeux</option>
+        </select>
+      </div>
+      <div class="form-row"><label>🌇 Ciel après-midi</label>
+        <select class="sel" id="f-ciel-apm">
           <option value="">—</option>
           <option>☀️ Ensoleillé</option><option>⛅ Partiellement nuageux</option>
           <option>☁️ Couvert</option><option>🌧️ Pluvieux</option>
@@ -217,51 +262,49 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
     </div>
   </div>
 
-  <!-- CAPTURES DU JOUR — FIX: +Sandre +Silure -->
+  <!-- FIX: CAPTURES DU JOUR en 2 colonnes -->
   <div class="card">
     <div class="card-title">🐟 Captures du jour</div>
-    <div class="esp-counter">
-      <span class="esp-label">🐟 Brochet</span>
-      <div class="ctr">
-        <button class="ctr-btn" onclick="changeCap('brochet',-1)">−</button>
-        <span class="ctr-val" id="nb-brochet">0</span>
-        <button class="ctr-btn" onclick="changeCap('brochet',1)">+</button>
+    <div class="cap-grid">
+      <div class="esp-counter">
+        <span class="esp-label">🐟 Brochet</span>
+        <div class="ctr">
+          <button class="ctr-btn" onclick="changeCap('brochet',-1)">−</button>
+          <span class="ctr-val" id="nb-brochet">0</span>
+          <button class="ctr-btn" onclick="changeCap('brochet',1)">+</button>
+        </div>
       </div>
-    </div>
-    <div class="esp-counter">
-      <span class="esp-label">🐠 Perche</span>
-      <div class="ctr">
-        <button class="ctr-btn" onclick="changeCap('perche',-1)">−</button>
-        <span class="ctr-val" id="nb-perche">0</span>
-        <button class="ctr-btn" onclick="changeCap('perche',1)">+</button>
+      <div class="esp-counter">
+        <span class="esp-label">⚡ Sandre</span>
+        <div class="ctr">
+          <button class="ctr-btn" onclick="changeCap('sandre',-1)">−</button>
+          <span class="ctr-val" id="nb-sandre">0</span>
+          <button class="ctr-btn" onclick="changeCap('sandre',1)">+</button>
+        </div>
       </div>
-    </div>
-    <!-- FIX: Sandre et Silure -->
-    <div class="esp-counter">
-      <span class="esp-label">⚡ Sandre</span>
-      <div class="ctr">
-        <button class="ctr-btn" onclick="changeCap('sandre',-1)">−</button>
-        <span class="ctr-val" id="nb-sandre">0</span>
-        <button class="ctr-btn" onclick="changeCap('sandre',1)">+</button>
+      <div class="esp-counter">
+        <span class="esp-label">🐠 Perche</span>
+        <div class="ctr">
+          <button class="ctr-btn" onclick="changeCap('perche',-1)">−</button>
+          <span class="ctr-val" id="nb-perche">0</span>
+          <button class="ctr-btn" onclick="changeCap('perche',1)">+</button>
+        </div>
       </div>
-    </div>
-    <div class="esp-counter">
-      <span class="esp-label">🐉 Silure</span>
-      <div class="ctr">
-        <button class="ctr-btn" onclick="changeCap('silure',-1)">−</button>
-        <span class="ctr-val" id="nb-silure">0</span>
-        <button class="ctr-btn" onclick="changeCap('silure',1)">+</button>
+      <div class="esp-counter">
+        <span class="esp-label">🐉 Silure</span>
+        <div class="ctr">
+          <button class="ctr-btn" onclick="changeCap('silure',-1)">−</button>
+          <span class="ctr-val" id="nb-silure">0</span>
+          <button class="ctr-btn" onclick="changeCap('silure',1)">+</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- BEAUX POISSONS — FIX: colonne Joueur -->
+  <!-- FIX: BEAUX POISSONS — Espèce + Joueur + Lieu + Fond + Leurre + Taille -->
   <div class="card">
     <div class="card-title">🏆 Beaux poissons</div>
     <div id="cc-import-zone"></div>
-    <div class="bp-headers">
-      <span>Espèce</span><span>Joueur</span><span>Leurre</span><span>Taille</span><span></span>
-    </div>
     <div id="bp-list"></div>
     <button class="add-btn" onclick="addBP()">+ Ajouter un beau poisson</button>
   </div>
@@ -271,7 +314,7 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
     <input type="text" class="inp" id="f-leurre-souvenir" placeholder="Le leurre / technique qui a fait la différence…"/>
   </div>
 
-  <!-- FIX: Morale — ordre 🤬😠😣😁🤩 -->
+  <!-- Morale ordre 🤬😠😣😁🤩 -->
   <div class="card">
     <div class="card-title">😤 Morale du jour</div>
     <div class="morale-row">
@@ -298,6 +341,11 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
 <!-- ══ STATS ══ -->
 <div id="view-stats" style="display:none"><div id="stats-content"></div></div>
 
+<!-- ══ PRÉPARATION ══ -->
+<div id="view-prep" style="display:none">
+  <div id="prep-content"></div>
+</div>
+
 <!-- ══ IMPORT ══ -->
 <div id="view-import" style="display:none">
   <div class="card">
@@ -320,78 +368,77 @@ var LIEUX = {
   'Lac Amance': ['Bordures','Autre'],
   'Autre': ['Autre']
 };
-var FONDS = [
-  '—','Bordures / Berges','Herbiers 0-3m','Herbiers 3-5m','Tapis d\'herbes 5-6m',
-  'Cassure 6-8m','Cassure 8-10m','Cassure 10-12m','Cassure 12-15m','Profond 10-12m','Profond 12-15m'
-];
-
-// FIX: MORALES avec bon ordre 🤬😠😣😁🤩
+var FONDS = ['—','Bordures / Berges','Herbiers 0-3m','Herbiers 3-5m','Tapis d\'herbes 5-6m','Cassure 6-8m','Cassure 8-10m','Cassure 10-12m','Cassure 12-15m','Profond 10-12m','Profond 12-15m'];
 var MORALES = ['','🤬','😠','😣','😁','🤩'];
-
-// FIX: Toutes les espèces incluant Sandre et Silure
 var ESPECES = ['Brochet','Perche','Sandre','Silure','Autre'];
 var ESP_EMOJI = {Brochet:'🐟',Perche:'🐠',Sandre:'⚡',Silure:'🐉',Autre:'🐟'};
+var JOUEURS = ['Guillaume','Kevin','Mickael'];
 
 var sorties = [];
 var morale = 0;
 var bpCount = 0;
-// FIX: Compteurs étendus
 var nbCaps = {brochet:0, perche:0, sandre:0, silure:0};
 var editingId = null;
 var firebaseReady = false;
 var dbRef = null;
+var prepRef = null;
 var cccupDates = [];
 var cccupData = [];
+
+// Slots de préparation (persistants Firebase)
+var prepSlots = [{date:'',lac:'Lac Orient',notes:'',meteoCache:null,meteoTime:null},
+                 {date:'',lac:'Lac Orient',notes:'',meteoCache:null,meteoTime:null},
+                 {date:'',lac:'Lac Orient',notes:'',meteoCache:null,meteoTime:null}];
 
 // ── UTILS ──
 function today(){ return new Date().toISOString().split('T')[0]; }
 function pad(n){ return String(n).padStart(2,'0'); }
 function fmtShort(s){ if(!s) return ''; var d=new Date(s+'T12:00:00'); return d.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}); }
+function weekOfYear(dateStr){
+  var d=new Date(dateStr+'T12:00:00');
+  var start=new Date(d.getFullYear(),0,1);
+  return Math.ceil(((d-start)/86400000+start.getDay()+1)/7);
+}
+function diffDays(a,b){ return Math.floor((new Date(a)-new Date(b))/(1000*60*60*24)); }
 
 // ── CRÉNEAUX ──
 function buildTimeOptions(selId, defaultVal){
-  var sel=document.getElementById(selId);
+  var sel=document.getElementById(selId); if(!sel) return;
   sel.innerHTML='<option value="">—</option>';
-  for(var h=6;h<=21;h++){
-    for(var m=0;m<60;m+=30){
-      var val=pad(h)+':'+pad(m);
-      var opt=document.createElement('option');
-      opt.value=val; opt.textContent=val;
-      if(val===defaultVal) opt.selected=true;
-      sel.appendChild(opt);
-    }
+  for(var h=6;h<=21;h++) for(var m=0;m<60;m+=30){
+    var val=pad(h)+':'+pad(m);
+    var opt=document.createElement('option');
+    opt.value=val; opt.textContent=val;
+    if(val===defaultVal) opt.selected=true;
+    sel.appendChild(opt);
   }
 }
 
 // ── TABS ──
 function showTab(t){
-  ['new','histo','stats','import'].forEach(function(x){
+  ['new','histo','stats','prep','import'].forEach(function(x){
     document.getElementById('view-'+x).style.display=x===t?'block':'none';
     document.getElementById('tab-'+x).classList.toggle('active',x===t);
   });
   if(t==='histo') renderHisto();
   if(t==='stats') renderStats();
+  if(t==='prep') renderPrep();
 }
 
 // ── LIEUX ──
 function updateLieux(){
   var lac=document.getElementById('f-lac').value;
   document.querySelectorAll('.bp-lieu').forEach(function(sel){
-    var cur=sel.value;
-    sel.innerHTML=lieuxOpts(lac,cur);
-    onLieuChange(sel);
+    var cur=sel.value; sel.innerHTML=lieuxOpts(lac,cur); onLieuChange(sel);
   });
 }
-
-function lieuxOpts(lac, selected){
+function lieuxOpts(lac,selected){
   var lieux=LIEUX[lac]||['Autre'];
   return '<option value="">—</option>'+lieux.map(function(l){return '<option'+(l===selected?' selected':'')+'>'+l+'</option>';}).join('');
 }
-
 function fondsOpts(selected){
   return FONDS.map(function(f){return '<option'+(f===selected?' selected':'')+'>'+f+'</option>';}).join('');
 }
-
 function onLieuChange(sel){
   var id=sel.id.replace('blieu-','');
   var autreZone=document.getElementById('bautre-'+id);
@@ -399,40 +446,41 @@ function onLieuChange(sel){
 }
 
 // ── COMPTEURS CAPTURES ──
-function changeCap(esp, d){
+function changeCap(esp,d){
   nbCaps[esp]=Math.max(0,(nbCaps[esp]||0)+d);
   document.getElementById('nb-'+esp).textContent=nbCaps[esp];
 }
 
-// ── BEAUX POISSONS — FIX: colonne Joueur + espèces étendues ──
-function espOpts(selected){
-  return ESPECES.map(function(e){
-    return '<option'+(e===selected?' selected':'')+'>'+e+'</option>';
-  }).join('');
-}
-
-function joueurOpts(selected){
-  var joueurs=['Guillaume','Kevin','Mickael','Autre'];
-  return '<option value="">—</option>'+joueurs.map(function(j){
-    return '<option'+(j===selected?' selected':'')+'>'+j+'</option>';
-  }).join('');
-}
+// ── BEAUX POISSONS — Espèce + Joueur + Lieu + Fond + Leurre + Taille ──
+function espOpts(sel){ return ESPECES.map(function(e){return '<option'+(e===sel?' selected':'')+'>'+e+'</option>';}).join(''); }
+function joueurOpts(sel){ return '<option value="">—</option>'+JOUEURS.map(function(j){return '<option'+(j===sel?' selected':'')+'>'+j+'</option>';}).join(''); }
 
 function addBP(d){
   d=d||{};
   var id=bpCount++;
   var lac=document.getElementById('f-lac').value;
-  var row=document.createElement('div');
-  row.id='bp-'+id;
-  row.innerHTML='<div class="bp-row">'
-    +'<select class="sel" id="besp-'+id+'">'+espOpts(d.espece||'Brochet')+'</select>'
-    // FIX: Joueur à la place de Lieu·Fond (simplifié)
-    +'<select class="sel" id="bjoueur-'+id+'">'+joueurOpts(d.joueur||'')+'</select>'
-    +'<input class="inp" type="text" id="bleurre-'+id+'" placeholder="Leurre…" value="'+(d.leurre||'')+'"/>'
-    +'<input class="inp" type="number" id="btaille-'+id+'" placeholder="cm" value="'+(d.taille||'')+'" style="-moz-appearance:textfield"/>'
-    +'<button class="bp-del" onclick="delBP('+id+')">×</button>'
-    +'</div>';
-  document.getElementById('bp-list').appendChild(row);
+  var div=document.createElement('div');
+  div.id='bp-'+id;
+  div.className='bp-form';
+  div.innerHTML=
+    '<div class="bp-form-row">'
+      +'<div><label>Espèce</label><select class="sel" id="besp-'+id+'">'+espOpts(d.espece||'Brochet')+'</select></div>'
+      +'<div><label>Joueur</label><select class="sel" id="bjoueur-'+id+'">'+joueurOpts(d.joueur||'')+'</select></div>'
+    +'</div>'
+    +'<div class="bp-form-row">'
+      +'<div><label>Lieu</label>'
+        +'<select class="sel bp-lieu" id="blieu-'+id+'" onchange="onLieuChange(this)">'+lieuxOpts(lac,d.lieu||'')+'</select>'
+        +'<div id="bautre-'+id+'" class="lieu-autre"><input class="inp" type="text" id="blieuautre-'+id+'" placeholder="Préciser…" value="'+(d.lieuAutre||'')+'"/></div>'
+      +'</div>'
+      +'<div><label>Fond</label><select class="sel" id="bfond-'+id+'">'+fondsOpts(d.fond||'')+'</select></div>'
+    +'</div>'
+    +'<div class="bp-form-row">'
+      +'<div><label>Leurre</label><input class="inp" type="text" id="bleurre-'+id+'" placeholder="Leurre…" value="'+(d.leurre||'')+'"/></div>'
+      +'<div><label>Taille (cm)</label><input class="inp" type="number" id="btaille-'+id+'" placeholder="cm" value="'+(d.taille||'')+'" style="-moz-appearance:textfield"/></div>'
+    +'</div>'
+    +'<button class="bp-del" onclick="delBP('+id+')">✕ Supprimer</button>';
+  document.getElementById('bp-list').appendChild(div);
+  if(d.lieu==='Autre'&&d.lieuAutre) document.getElementById('bautre-'+id).style.display='block';
 }
 
 function delBP(id){ var el=document.getElementById('bp-'+id); if(el) el.remove(); }
@@ -441,20 +489,22 @@ function getBPs(){
   var bps=[];
   document.querySelectorAll('[id^="besp-"]').forEach(function(el){
     var id=el.id.replace('besp-','');
+    var lieu=document.getElementById('blieu-'+id)?document.getElementById('blieu-'+id).value:'';
+    var lieuFinal=lieu==='Autre'?(document.getElementById('blieuautre-'+id)?document.getElementById('blieuautre-'+id).value||'Autre':'Autre'):lieu;
     bps.push({
       espece:el.value,
       joueur:document.getElementById('bjoueur-'+id)?document.getElementById('bjoueur-'+id).value:'',
-      leurre:document.getElementById('bleurre-'+id).value||'',
-      taille:document.getElementById('btaille-'+id).value||''
+      lieu:lieuFinal,
+      fond:document.getElementById('bfond-'+id)?document.getElementById('bfond-'+id).value||'':'',
+      leurre:document.getElementById('bleurre-'+id)?document.getElementById('bleurre-'+id).value||'':'',
+      taille:document.getElementById('btaille-'+id)?document.getElementById('btaille-'+id).value||'':''
     });
   });
   return bps;
 }
 
 // ── CC IMPORT ──
-function onDateChange(){
-  checkCCImport();
-}
+function onDateChange(){ checkCCImport(); }
 
 function checkCCImport(){
   var date=document.getElementById('f-date').value;
@@ -462,251 +512,159 @@ function checkCCImport(){
   if(!date||cccupDates.indexOf(date)===-1){ zone.innerHTML=''; return; }
   var day=cccupData.find(function(d){return d.dateISO===date;});
   if(!day){ zone.innerHTML=''; return; }
-  var hasData=day.anglers&&day.anglers.some(function(a){
-    return a.counts&&(a.counts.pike>0||a.counts.perch>0);
-  });
-  if(hasData){
-    zone.innerHTML='<button class="cc-import-btn" onclick="importFromCC()">🏆 Importer les beaux poissons CC Cup du '+date+'</button>';
-  } else {
-    zone.innerHTML='';
-  }
+  var hasData=day.anglers&&day.anglers.some(function(a){ return a.counts&&(a.counts.pike>0||a.counts.perch>0); });
+  if(hasData) zone.innerHTML='<button class="cc-import-btn" onclick="importFromCC()">🏆 Importer les beaux poissons CC Cup du '+date+'</button>';
+  else zone.innerHTML='';
 }
 
-// FIX: Import CC Cup — volume captures dans compteurs + nom joueur sur chaque beau poisson
 function importFromCC(){
   var date=document.getElementById('f-date').value;
   var day=cccupData.find(function(d){return d.dateISO===date;});
   if(!day) return;
-
-  var PLAYER_NAMES=['Guillaume','Kevin','Mickael'];
-  var totalPike=0, totalPerch=0;
-  var imported=false;
-
-  day.anglers.forEach(function(a, i){
-    var joueurName = PLAYER_NAMES[i] || ('Joueur '+(i+1));
-
-    // FIX: Accumule le volume total dans les compteurs
-    if(a.counts){
-      totalPike += (a.counts.pike||0);
-      totalPerch += (a.counts.perch||0);
-    }
-
-    // FIX: Ajoute chaque beau poisson avec le nom du joueur
+  var totalPike=0,totalPerch=0;
+  day.anglers.forEach(function(a,i){
+    var joueurName=JOUEURS[i]||('Joueur '+(i+1));
+    if(a.counts){ totalPike+=(a.counts.pike||0); totalPerch+=(a.counts.perch||0); }
     if(a.sizes){
-      if(a.sizes.pike && parseFloat(a.sizes.pike)>0){
-        addBP({espece:'Brochet', joueur:joueurName, taille:a.sizes.pike, leurre:''});
-        imported=true;
-      }
-      if(a.sizes.perch && parseFloat(a.sizes.perch)>0){
-        addBP({espece:'Perche', joueur:joueurName, taille:a.sizes.perch, leurre:''});
-        imported=true;
-      }
+      if(a.sizes.pike&&parseFloat(a.sizes.pike)>0) addBP({espece:'Brochet',joueur:joueurName,taille:a.sizes.pike,leurre:'',lieu:'',fond:''});
+      if(a.sizes.perch&&parseFloat(a.sizes.perch)>0) addBP({espece:'Perche',joueur:joueurName,taille:a.sizes.perch,leurre:'',lieu:'',fond:''});
     }
   });
-
-  // FIX: Met à jour les compteurs globaux
-  if(totalPike>0){
-    nbCaps.brochet += totalPike;
-    document.getElementById('nb-brochet').textContent = nbCaps.brochet;
-  }
-  if(totalPerch>0){
-    nbCaps.perche += totalPerch;
-    document.getElementById('nb-perche').textContent = nbCaps.perche;
-  }
-
-  if(imported||totalPike||totalPerch){
-    document.getElementById('cc-import-zone').innerHTML='<div style="font-size:0.72rem;color:#1a7a30;margin-bottom:8px;">✅ Importé — '+totalPike+' brochet(s) · '+totalPerch+' perche(s) · complète les leurres</div>';
-  }
+  if(totalPike>0){ nbCaps.brochet+=totalPike; document.getElementById('nb-brochet').textContent=nbCaps.brochet; }
+  if(totalPerch>0){ nbCaps.perche+=totalPerch; document.getElementById('nb-perche').textContent=nbCaps.perche; }
+  document.getElementById('cc-import-zone').innerHTML='<div style="font-size:0.72rem;color:#1a7a30;margin-bottom:8px;">✅ Importé — '+totalPike+' brochet(s) · '+totalPerch+' perche(s) · complète lieu et leurre</div>';
 }
 
-// ── MÉTÉO — FIX: T° air + vent + pression auto, ciel reste manuel ──
+// ── MÉTÉO SORTIE ──
 function fetchMeteo(){
   var date=document.getElementById('f-date').value;
   if(!date){alert('Sélectionne une date.');return;}
   var zone=document.getElementById('meteo-zone');
   zone.innerHTML='<div style="font-size:0.7rem;color:#aaa;margin-bottom:8px;">🔄 Récupération…</div>';
-
   var todayStr=new Date().toISOString().split('T')[0];
-  var diffDays=Math.floor((new Date(todayStr)-new Date(date))/(1000*60*60*24));
-
-  var url;
-  if(diffDays<=5){
-    url='https://api.open-meteo.com/v1/forecast?latitude=48.28&longitude=4.37&start_date='+date+'&end_date='+date+'&daily=temperature_2m_mean,temperature_2m_max,wind_speed_10m_max,weather_code,pressure_msl_mean&timezone=Europe/Paris';
-  } else {
-    url='https://archive-api.open-meteo.com/v1/archive?latitude=48.28&longitude=4.37&start_date='+date+'&end_date='+date+'&daily=temperature_2m_mean,temperature_2m_max,wind_speed_10m_max,weather_code,pressure_msl_mean&timezone=Europe/Paris';
-  }
-
-  fetch(url)
-    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-    .then(function(data){
-      if(!data.daily||!data.daily.temperature_2m_mean) throw new Error('Données manquantes');
-      var temp=Math.round(data.daily.temperature_2m_mean[0]);
-      var tempMax=Math.round(data.daily.temperature_2m_max[0]);
-      var vent=Math.round(data.daily.wind_speed_10m_max[0]);
-      var pres=data.daily.pressure_msl_mean?Math.round(data.daily.pressure_msl_mean[0]):null;
-      // FIX: Auto-remplit T° air, vent, pression — ciel laissé manuel
-      document.getElementById('f-tair').value=temp;
-      document.getElementById('f-vent').value=vent;
-      if(pres) document.getElementById('f-pression').value=pres;
-      // f-ciel N'EST PAS touché — rester manuel
-      zone.innerHTML='<div class="meteo-result">✅ '+temp+'°C (max '+tempMax+'°C) · '+vent+' km/h'+(pres?' · '+pres+' hPa':'')+'<br><span style="font-size:0.7rem;color:#888;">Choisis le ciel manuellement ↓</span></div>';
-    })
-    .catch(function(){
-      zone.innerHTML='<div style="font-size:0.7rem;color:#c05050;margin-bottom:8px;">⚠️ Météo indisponible pour cette date — renseigne manuellement</div>';
-    });
+  var diff=Math.floor((new Date(todayStr)-new Date(date))/(1000*60*60*24));
+  var url=diff<=5
+    ?'https://api.open-meteo.com/v1/forecast?latitude=48.28&longitude=4.37&start_date='+date+'&end_date='+date+'&daily=temperature_2m_mean,temperature_2m_max,wind_speed_10m_max,weather_code,pressure_msl_mean&timezone=Europe/Paris'
+    :'https://archive-api.open-meteo.com/v1/archive?latitude=48.28&longitude=4.37&start_date='+date+'&end_date='+date+'&daily=temperature_2m_mean,temperature_2m_max,wind_speed_10m_max,weather_code,pressure_msl_mean&timezone=Europe/Paris';
+  fetch(url).then(function(r){if(!r.ok)throw new Error();return r.json();}).then(function(data){
+    if(!data.daily||!data.daily.temperature_2m_mean) throw new Error();
+    var temp=Math.round(data.daily.temperature_2m_mean[0]);
+    var tempMax=Math.round(data.daily.temperature_2m_max[0]);
+    var vent=Math.round(data.daily.wind_speed_10m_max[0]);
+    var pres=data.daily.pressure_msl_mean?Math.round(data.daily.pressure_msl_mean[0]):null;
+    document.getElementById('f-tair').value=temp;
+    document.getElementById('f-vent').value=vent;
+    if(pres) document.getElementById('f-pression').value=pres;
+    zone.innerHTML='<div class="meteo-result">✅ '+temp+'°C (max '+tempMax+'°C) · '+vent+' km/h'+(pres?' · '+pres+' hPa':'')+'<br><span style="font-size:0.7rem;color:#888;">Choisis le ciel matin et après-midi ↓</span></div>';
+  }).catch(function(){
+    zone.innerHTML='<div style="font-size:0.7rem;color:#c05050;margin-bottom:8px;">⚠️ Météo indisponible — renseigne manuellement</div>';
+  });
 }
+
+function wmoEmoji(c){ if(c===0)return'☀️'; if(c<=2)return'⛅'; if(c<=3)return'☁️'; if(c<=49)return'🌫️'; if(c<=82)return'🌧️'; return'⛈️'; }
+function wmoText(c){ if(c===0)return'Ensoleillé'; if(c<=2)return'Partiellement nuageux'; if(c<=3)return'Couvert'; if(c<=49)return'Brumeux'; if(c<=82)return'Pluvieux'; return'Orageux'; }
 
 // ── MORALE ──
-function setMorale(v){
-  morale=v;
-  for(var i=1;i<=5;i++) document.getElementById('m'+i).classList.toggle('active',i===v);
-}
+function setMorale(v){ morale=v; for(var i=1;i<=5;i++) document.getElementById('m'+i).classList.toggle('active',i===v); }
 
 // ── SAVE ──
 function saveSortie(){
   var date=document.getElementById('f-date').value;
   if(!date){alert('La date est obligatoire.');return;}
   var s={
-    id:editingId||Date.now(),
-    date:date,
-    lac:document.getElementById('f-lac').value,
-    hdebut:document.getElementById('f-hdebut').value,
-    hfin:document.getElementById('f-hfin').value,
+    id:editingId||Date.now(),date:date,lac:document.getElementById('f-lac').value,
+    hdebut:document.getElementById('f-hdebut').value,hfin:document.getElementById('f-hfin').value,
     crew:document.getElementById('f-crew').value,
-    tair:document.getElementById('f-tair').value,
-    vent:document.getElementById('f-vent').value,
-    pression:document.getElementById('f-pression').value,
-    teau:document.getElementById('f-teau').value,
-    ciel:document.getElementById('f-ciel').value,
-    nbBrochet:nbCaps.brochet,
-    nbPerche:nbCaps.perche,
-    nbSandre:nbCaps.sandre,
-    nbSilure:nbCaps.silure,
-    beauxPoissons:getBPs(),
-    leurresSouvenir:document.getElementById('f-leurre-souvenir').value,
-    morale:morale,
-    moraleTxt:document.getElementById('f-morale-txt').value,
-    notes:document.getElementById('f-notes').value,
-    isCCDay:cccupDates.indexOf(date)>-1
+    tair:document.getElementById('f-tair').value,vent:document.getElementById('f-vent').value,
+    pression:document.getElementById('f-pression').value,teau:document.getElementById('f-teau').value,
+    cielMatin:document.getElementById('f-ciel-matin').value,
+    cielApm:document.getElementById('f-ciel-apm').value,
+    nbBrochet:nbCaps.brochet,nbPerche:nbCaps.perche,nbSandre:nbCaps.sandre,nbSilure:nbCaps.silure,
+    beauxPoissons:getBPs(),leurresSouvenir:document.getElementById('f-leurre-souvenir').value,
+    morale:morale,moraleTxt:document.getElementById('f-morale-txt').value,
+    notes:document.getElementById('f-notes').value,isCCDay:cccupDates.indexOf(date)>-1
   };
-  if(editingId){
-    var idx=sorties.findIndex(function(x){return x.id===editingId;});
-    if(idx>-1) sorties[idx]=s;
-  } else {
-    sorties.push(s);
-  }
+  if(editingId){ var idx=sorties.findIndex(function(x){return x.id===editingId;}); if(idx>-1) sorties[idx]=s; }
+  else sorties.push(s);
   sorties.sort(function(a,b){return b.date.localeCompare(a.date);});
-  saveToFirebase();
-  resetForm();
-  showTab('histo');
+  saveToFirebase(); resetForm(); showTab('histo');
 }
 
 function editSortie(id){
-  var s=sorties.find(function(x){return x.id===id;});
-  if(!s) return;
+  var s=sorties.find(function(x){return x.id===id;}); if(!s) return;
   editingId=id;
   document.getElementById('edit-banner').style.display='flex';
   document.getElementById('save-btn').textContent='💾 Mettre à jour';
   showTab('new');
   document.getElementById('f-date').value=s.date;
   document.getElementById('f-lac').value=s.lac;
-  buildTimeOptions('f-hdebut',s.hdebut);
-  buildTimeOptions('f-hfin',s.hfin);
+  buildTimeOptions('f-hdebut',s.hdebut); buildTimeOptions('f-hfin',s.hfin);
   document.getElementById('f-crew').value=s.crew||'';
   document.getElementById('f-tair').value=s.tair||'';
   document.getElementById('f-vent').value=s.vent||'';
   document.getElementById('f-pression').value=s.pression||'';
   document.getElementById('f-teau').value=s.teau||'';
-  document.getElementById('f-ciel').value=s.ciel||'';
-  nbCaps.brochet=s.nbBrochet||0;
-  nbCaps.perche=s.nbPerche||0;
-  nbCaps.sandre=s.nbSandre||0;
-  nbCaps.silure=s.nbSilure||0;
-  document.getElementById('nb-brochet').textContent=nbCaps.brochet;
-  document.getElementById('nb-perche').textContent=nbCaps.perche;
-  document.getElementById('nb-sandre').textContent=nbCaps.sandre;
-  document.getElementById('nb-silure').textContent=nbCaps.silure;
-  document.getElementById('bp-list').innerHTML='';
-  bpCount=0;
+  document.getElementById('f-ciel-matin').value=s.cielMatin||s.ciel||'';
+  document.getElementById('f-ciel-apm').value=s.cielApm||'';
+  nbCaps={brochet:s.nbBrochet||0,perche:s.nbPerche||0,sandre:s.nbSandre||0,silure:s.nbSilure||0};
+  ['brochet','perche','sandre','silure'].forEach(function(e){ document.getElementById('nb-'+e).textContent=nbCaps[e]; });
+  document.getElementById('bp-list').innerHTML=''; bpCount=0;
   if(s.beauxPoissons) s.beauxPoissons.forEach(function(bp){addBP(bp);});
   document.getElementById('f-leurre-souvenir').value=s.leurresSouvenir||'';
-  morale=s.morale||0;
-  for(var i=1;i<=5;i++) document.getElementById('m'+i).classList.toggle('active',i===morale);
+  morale=s.morale||0; for(var i=1;i<=5;i++) document.getElementById('m'+i).classList.toggle('active',i===morale);
   document.getElementById('f-morale-txt').value=s.moraleTxt||'';
   document.getElementById('f-notes').value=s.notes||'';
   checkCCImport();
 }
 
-function cancelEdit(){
-  editingId=null;
-  document.getElementById('edit-banner').style.display='none';
-  document.getElementById('save-btn').textContent='💾 Enregistrer la sortie';
-  resetForm();
-}
+function cancelEdit(){ editingId=null; document.getElementById('edit-banner').style.display='none'; document.getElementById('save-btn').textContent='💾 Enregistrer la sortie'; resetForm(); }
 
 function resetForm(){
   editingId=null;
   document.getElementById('edit-banner').style.display='none';
   document.getElementById('save-btn').textContent='💾 Enregistrer la sortie';
   document.getElementById('f-date').value=today();
-  document.getElementById('f-crew').value='';
-  document.getElementById('f-tair').value='';
-  document.getElementById('f-vent').value='';
-  document.getElementById('f-pression').value='';
-  document.getElementById('f-teau').value='';
-  document.getElementById('f-ciel').value='';
-  document.getElementById('f-leurre-souvenir').value='';
-  document.getElementById('f-morale-txt').value='';
-  document.getElementById('f-notes').value='';
+  ['crew','tair','vent','pression','teau','leurre-souvenir','morale-txt','notes'].forEach(function(f){ var el=document.getElementById('f-'+f); if(el) el.value=''; });
+  document.getElementById('f-ciel-matin').value='';
+  document.getElementById('f-ciel-apm').value='';
   document.getElementById('bp-list').innerHTML='';
   document.getElementById('cc-import-zone').innerHTML='';
   document.getElementById('meteo-zone').innerHTML='';
   nbCaps={brochet:0,perche:0,sandre:0,silure:0};
-  ['brochet','perche','sandre','silure'].forEach(function(e){
-    document.getElementById('nb-'+e).textContent=0;
-  });
+  ['brochet','perche','sandre','silure'].forEach(function(e){ document.getElementById('nb-'+e).textContent=0; });
   morale=0; bpCount=0;
   for(var i=1;i<=5;i++) document.getElementById('m'+i).classList.remove('active');
-  buildTimeOptions('f-hdebut','06:00');
-  buildTimeOptions('f-hfin','');
+  buildTimeOptions('f-hdebut','06:00'); buildTimeOptions('f-hfin','');
 }
 
 function deleteSortie(id){
   if(!window.confirm('Supprimer cette sortie ?')) return;
-  sorties=sorties.filter(function(s){return s.id!==id;});
-  saveToFirebase(); renderHisto();
+  sorties=sorties.filter(function(s){return s.id!==id;}); saveToFirebase(); renderHisto();
 }
 
-// FIX: Suppression de tout l'historique
 function deleteAllSorties(){
-  if(!window.confirm('⚠️ Supprimer TOUTES les sorties ? Cette action est irréversible.')) return;
+  if(!window.confirm('⚠️ Supprimer TOUTES les sorties ?')) return;
   if(!window.confirm('Confirmation finale — effacer tout l\'historique ?')) return;
-  sorties=[];
-  saveToFirebase();
-  renderHisto();
+  sorties=[]; saveToFirebase(); renderHisto();
 }
 
 // ── HISTORIQUE ──
 function renderHisto(){
   var el=document.getElementById('histo-content');
-  if(!sorties.length){
-    el.innerHTML='<div class="empty"><div class="empty-icon">📒</div><div class="empty-txt">Aucune sortie</div></div>';
-    return;
-  }
+  if(!sorties.length){ el.innerHTML='<div class="empty"><div class="empty-icon">📒</div><div class="empty-txt">Aucune sortie</div></div>'; return; }
   var byYear={};
-  sorties.forEach(function(s){var y=s.date.split('-')[0];if(!byYear[y])byYear[y]=[];byYear[y].push(s);});
-  // FIX: Bouton suppression historique complet en haut
+  sorties.forEach(function(s){ var y=s.date.split('-')[0]; if(!byYear[y]) byYear[y]=[]; byYear[y].push(s); });
   var html='<div class="histo-toolbar"><button class="del-all-btn" onclick="deleteAllSorties()">🗑️ Effacer tout l\'historique</button></div>';
-
   Object.keys(byYear).sort(function(a,b){return b-a;}).forEach(function(year){
     var list=byYear[year];
     html+='<div class="year-title">'+year+'<span class="year-count">'+list.length+' sortie'+(list.length>1?'s':'')+'</span></div>';
     list.forEach(function(s){
       var nb=(s.nbBrochet||0)+(s.nbPerche||0)+(s.nbSandre||0)+(s.nbSilure||0);
+      var cielBadge=s.cielMatin||s.ciel||'';
       html+='<div class="sortie-card"><div class="sortie-head" onclick="toggleDetail('+s.id+')">';
       html+='<div><div class="s-date">'+fmtShort(s.date)+'</div><div class="s-lac">'+s.lac+'</div>'+(s.crew?'<div class="s-crew">👥 '+s.crew+'</div>':'')+'</div>';
       html+='<div class="s-badges">';
-      if(s.ciel) html+='<span class="badge">'+s.ciel.split(' ')[0]+(s.tair?' '+s.tair+'°C':'')+'</span>';
+      if(cielBadge) html+='<span class="badge">'+cielBadge.split(' ')[0]+(s.tair?' '+s.tair+'°C':'')+'</span>';
       if(s.teau) html+='<span class="badge">💧 '+s.teau+'°C</span>';
       if(s.isCCDay) html+='<span class="badge cc">🏆 CC Cup</span>';
       if(s.morale) html+='<span class="badge morale">'+MORALES[s.morale]+'</span>';
@@ -715,22 +673,22 @@ function renderHisto(){
       html+='</div>';
       html+='<div class="sortie-detail" id="detail-'+s.id+'">';
       if(s.hdebut||s.hfin) html+='<div style="font-size:0.7rem;color:#888;margin-top:8px;">🕐 '+(s.hdebut||'?')+' → '+(s.hfin||'?')+'</div>';
-      var metStr=[s.ciel,s.tair?s.tair+'°C air':'',s.vent?s.vent+' km/h':'',s.pression?s.pression+' hPa':'',s.teau?s.teau+'°C eau':''].filter(Boolean).join(' · ');
+      var cielStr='';
+      if(s.cielMatin||s.cielApm){
+        cielStr=(s.cielMatin?'🌅 '+s.cielMatin:'')+(s.cielApm?' · 🌇 '+s.cielApm:'');
+      } else if(s.ciel){ cielStr=s.ciel; }
+      var metStr=[cielStr,s.tair?s.tair+'°C air':'',s.vent?s.vent+' km/h':'',s.pression?s.pression+' hPa':'',s.teau?s.teau+'°C eau':''].filter(Boolean).join(' · ');
       if(metStr) html+='<div class="d-section"><div class="d-title">Conditions</div><div class="d-meteo">'+metStr+'</div></div>';
-
-      // Captures du jour — FIX: inclut Sandre et Silure
       var capStr=[];
       if(s.nbBrochet) capStr.push('🐟 Brochet ×'+s.nbBrochet);
       if(s.nbPerche) capStr.push('🐠 Perche ×'+s.nbPerche);
       if(s.nbSandre) capStr.push('⚡ Sandre ×'+s.nbSandre);
       if(s.nbSilure) capStr.push('🐉 Silure ×'+s.nbSilure);
       if(capStr.length) html+='<div class="d-section"><div class="d-title">Captures du jour</div><div style="font-size:0.82rem;font-weight:700;color:#333;">'+capStr.join(' · ')+'</div></div>';
-
-      // Beaux poissons — FIX: affiche le joueur
       if(s.beauxPoissons&&s.beauxPoissons.length){
-        html+='<div class="d-section"><div class="d-title">🏆 Beaux poissons</div><table class="d-table"><thead><tr><th>Espèce</th><th>Joueur</th><th>Leurre</th><th>Taille</th></tr></thead><tbody>';
+        html+='<div class="d-section"><div class="d-title">🏆 Beaux poissons</div><table class="d-table"><thead><tr><th>Espèce</th><th>Joueur</th><th>Lieu</th><th>Fond</th><th>Leurre</th><th>Taille</th></tr></thead><tbody>';
         s.beauxPoissons.forEach(function(b){
-          html+='<tr><td>'+(ESP_EMOJI[b.espece]||'🐟')+' '+b.espece+'</td><td>'+(b.joueur||'—')+'</td><td>'+(b.leurre||'—')+'</td><td>'+(b.taille?b.taille+' cm':'—')+'</td></tr>';
+          html+='<tr><td>'+(ESP_EMOJI[b.espece]||'🐟')+' '+b.espece+'</td><td>'+(b.joueur||'—')+'</td><td>'+(b.lieu||'—')+'</td><td>'+(b.fond||'—')+'</td><td>'+(b.leurre||'—')+'</td><td>'+(b.taille?b.taille+' cm':'—')+'</td></tr>';
         });
         html+='</tbody></table></div>';
       }
@@ -744,114 +702,327 @@ function renderHisto(){
   el.innerHTML=html;
 }
 
-function toggleDetail(id){var el=document.getElementById('detail-'+id);if(el)el.classList.toggle('open');}
+function toggleDetail(id){ var el=document.getElementById('detail-'+id); if(el) el.classList.toggle('open'); }
 
-// ── STATS — FIX: Palmarès records + tendances par espèce ──
+// ── STATS ──
 function renderStats(){
   var el=document.getElementById('stats-content');
-  if(!sorties.length){el.innerHTML='<div class="empty"><div class="empty-icon">📊</div><div class="empty-txt">Pas encore de données</div></div>';return;}
-
+  if(!sorties.length){ el.innerHTML='<div class="empty"><div class="empty-icon">📊</div><div class="empty-txt">Pas encore de données</div></div>'; return; }
   var totalBrochet=0,totalPerche=0,totalSandre=0,totalSilure=0;
   var cLeurre={},cJoueur={};
-  // Records par espèce: {max, date, leurre, joueur}
   var records={Brochet:{max:0,date:'',leurre:'',joueur:''},Perche:{max:0,date:'',leurre:'',joueur:''},Sandre:{max:0,date:'',leurre:'',joueur:''},Silure:{max:0,date:'',leurre:'',joueur:''}};
-
   sorties.forEach(function(s){
-    totalBrochet+=(s.nbBrochet||0);
-    totalPerche+=(s.nbPerche||0);
-    totalSandre+=(s.nbSandre||0);
-    totalSilure+=(s.nbSilure||0);
-
+    totalBrochet+=(s.nbBrochet||0); totalPerche+=(s.nbPerche||0); totalSandre+=(s.nbSandre||0); totalSilure+=(s.nbSilure||0);
     if(s.beauxPoissons) s.beauxPoissons.forEach(function(b){
       if(b.leurre) cLeurre[b.leurre]=(cLeurre[b.leurre]||0)+1;
       if(b.joueur) cJoueur[b.joueur]=(cJoueur[b.joueur]||0)+1;
-      // Records par espèce
-      if(b.espece&&records[b.espece]&&b.taille){
-        var t=parseFloat(b.taille);
-        if(!isNaN(t)&&t>records[b.espece].max){
-          records[b.espece]={max:t,date:s.date,leurre:b.leurre||'',joueur:b.joueur||''};
-        }
-      }
+      if(b.espece&&records[b.espece]&&b.taille){ var t=parseFloat(b.taille); if(!isNaN(t)&&t>records[b.espece].max) records[b.espece]={max:t,date:s.date,leurre:b.leurre||'',joueur:b.joueur||''}; }
     });
   });
-
   var total=totalBrochet+totalPerche+totalSandre+totalSilure;
   var moy=sorties.length?Math.round(total/sorties.length*10)/10:0;
   var topLeurre=Object.keys(cLeurre).sort(function(a,b){return cLeurre[b]-cLeurre[a];})[0]||'—';
   var topJoueur=Object.keys(cJoueur).sort(function(a,b){return cJoueur[b]-cJoueur[a];})[0]||'—';
-
-  var html='<div class="slabel">Chiffres clés</div>';
-  html+='<div class="stats-grid">';
+  var html='<div class="slabel">Chiffres clés</div><div class="stats-grid">';
   html+='<div class="stat-card"><div class="stat-val">'+sorties.length+'</div><div class="stat-lbl">Sorties</div></div>';
   html+='<div class="stat-card"><div class="stat-val">'+total+'</div><div class="stat-lbl">Captures</div></div>';
   html+='<div class="stat-card"><div class="stat-val">'+totalBrochet+'</div><div class="stat-lbl">🐟 Brochets</div></div>';
-  html+='<div class="stat-card"><div class="stat-val">'+moy+'</div><div class="stat-lbl">Moy/sortie</div></div>';
-  html+='</div>';
+  html+='<div class="stat-card"><div class="stat-val">'+moy+'</div><div class="stat-lbl">Moy/sortie</div></div></div>';
   if(totalSandre||totalSilure){
-    html+='<div class="stats-grid">';
-    html+='<div class="stat-card"><div class="stat-val">'+totalSandre+'</div><div class="stat-lbl">⚡ Sandres</div></div>';
-    html+='<div class="stat-card"><div class="stat-val">'+totalSilure+'</div><div class="stat-lbl">🐉 Silures</div></div>';
-    html+='</div>';
+    html+='<div class="stats-grid"><div class="stat-card"><div class="stat-val">'+totalSandre+'</div><div class="stat-lbl">⚡ Sandres</div></div>';
+    html+='<div class="stat-card"><div class="stat-val">'+totalSilure+'</div><div class="stat-lbl">🐉 Silures</div></div></div>';
   }
-
-  // FIX: Palmarès records par espèce
   html+='<div class="slabel">🏅 Records par espèce</div>';
   [{key:'Brochet',emoji:'🐟'},{key:'Perche',emoji:'🐠'},{key:'Sandre',emoji:'⚡'},{key:'Silure',emoji:'🐉'}].forEach(function(e){
-    var r=records[e.key];
-    if(r.max>0){
-      html+='<div class="record-row">';
-      html+='<div class="record-esp">'+e.emoji+' '+e.key+'</div>';
-      html+='<div class="record-grid">';
-      html+='<div class="record-item"><div class="record-item-val">'+r.max+' cm</div><div class="record-item-lbl">Record</div></div>';
-      html+='<div class="record-item"><div class="record-item-val" style="font-size:0.78rem;">'+(r.leurre||'—')+'</div><div class="record-item-lbl">Leurre</div></div>';
-      html+='<div class="record-item"><div class="record-item-val" style="font-size:0.78rem;">'+(r.joueur||'—')+'</div><div class="record-item-lbl">Joueur</div></div>';
-      html+='</div></div>';
-    }
+    var r=records[e.key]; if(r.max<=0) return;
+    html+='<div class="record-row"><div class="record-esp">'+e.emoji+' '+e.key+'</div><div class="record-grid">';
+    html+='<div class="record-item"><div class="record-item-val">'+r.max+' cm</div><div class="record-item-lbl">Record</div></div>';
+    html+='<div class="record-item"><div class="record-item-val" style="font-size:0.78rem;">'+(r.leurre||'—')+'</div><div class="record-item-lbl">Leurre</div></div>';
+    html+='<div class="record-item"><div class="record-item-val" style="font-size:0.78rem;">'+(r.joueur||'—')+'</div><div class="record-item-lbl">Joueur</div></div>';
+    html+='</div></div>';
   });
-
   html+='<div class="slabel">Palmarès</div>';
   html+='<div class="best-row"><div class="best-emoji">🎣</div><div><div class="best-val">'+topLeurre+(cLeurre[topLeurre]?' — '+cLeurre[topLeurre]+' beau'+(cLeurre[topLeurre]>1?'x':''):'')+'</div><div class="best-sub">Leurre le plus efficace</div></div></div>';
   html+='<div class="best-row"><div class="best-emoji">👤</div><div><div class="best-val">'+topJoueur+(cJoueur[topJoueur]?' — '+cJoueur[topJoueur]+' beau'+(cJoueur[topJoueur]>1?'x poisson':' poisson'):'')+'</div><div class="best-sub">Pêcheur le plus actif</div></div></div>';
-
-  // Top leurres
   var lSorted=Object.keys(cLeurre).sort(function(a,b){return cLeurre[b]-cLeurre[a];}).slice(0,5);
   if(lSorted.length){
     html+='<div class="slabel">Top leurres</div>';
-    lSorted.forEach(function(l,i){
-      html+='<div class="best-row"><div class="best-emoji">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':'🎣')+'</div><div><div class="best-val">'+l+'</div><div class="best-sub">'+cLeurre[l]+' beau'+(cLeurre[l]>1?'x poisson':' poisson')+'</div></div></div>';
-    });
+    lSorted.forEach(function(l,i){ html+='<div class="best-row"><div class="best-emoji">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':'🎣')+'</div><div><div class="best-val">'+l+'</div><div class="best-sub">'+cLeurre[l]+' beau'+(cLeurre[l]>1?'x poisson':' poisson')+'</div></div></div>'; });
   }
-
-  // FIX: Tendances par espèce (répartition)
   if(total>0){
     html+='<div class="slabel">📈 Tendances par espèce</div>';
-    [{key:'brochet',label:'🐟 Brochet',val:totalBrochet},
-     {key:'perche', label:'🐠 Perche', val:totalPerche},
-     {key:'sandre', label:'⚡ Sandre', val:totalSandre},
-     {key:'silure', label:'🐉 Silure', val:totalSilure}
-    ].filter(function(e){return e.val>0;}).forEach(function(e){
+    [{label:'🐟 Brochet',val:totalBrochet},{label:'🐠 Perche',val:totalPerche},{label:'⚡ Sandre',val:totalSandre},{label:'🐉 Silure',val:totalSilure}].filter(function(e){return e.val>0;}).forEach(function(e){
       var pct=Math.round(e.val/total*100);
-      html+='<div class="trend-card">';
-      html+='<div class="trend-esp">'+e.label+' — '+e.val+' capture'+(e.val>1?'s':'')+' ('+pct+'%)</div>';
-      html+='<div class="trend-bar-wrap"><div class="trend-bar" style="width:'+pct+'%"></div></div>';
-      html+='<div class="trend-lbl"><span>0</span><span>'+total+'</span></div>';
-      html+='</div>';
+      html+='<div class="trend-card"><div class="trend-esp">'+e.label+' — '+e.val+' capture'+(e.val>1?'s':'')+' ('+pct+'%)</div><div class="trend-bar-wrap"><div class="trend-bar" style="width:'+pct+'%"></div></div><div class="trend-lbl"><span>0</span><span>'+total+'</span></div></div>';
     });
   }
-
-  // Par année
   html+='<div class="slabel">Par saison</div>';
   var byYear={};
-  sorties.forEach(function(s){
-    var y=s.date.split('-')[0];
-    if(!byYear[y])byYear[y]={sorties:0,prises:0};
-    byYear[y].sorties++;
-    byYear[y].prises+=(s.nbBrochet||0)+(s.nbPerche||0)+(s.nbSandre||0)+(s.nbSilure||0);
-  });
+  sorties.forEach(function(s){ var y=s.date.split('-')[0]; if(!byYear[y]) byYear[y]={sorties:0,prises:0}; byYear[y].sorties++; byYear[y].prises+=(s.nbBrochet||0)+(s.nbPerche||0)+(s.nbSandre||0)+(s.nbSilure||0); });
   Object.keys(byYear).sort(function(a,b){return b-a;}).forEach(function(y){
     html+='<div class="best-row"><div class="best-emoji">📅</div><div><div class="best-val">'+y+' — '+byYear[y].sorties+' sortie'+(byYear[y].sorties>1?'s':'')+'</div><div class="best-sub">'+byYear[y].prises+' capture'+(byYear[y].prises>1?'s':'')+' · moy '+(Math.round(byYear[y].prises/byYear[y].sorties*10)/10)+'/sortie</div></div></div>';
   });
   el.innerHTML=html;
+}
+
+// ── PRÉPARATION ──────────────────────────────────────────────
+function renderPrep(){
+  var el=document.getElementById('prep-content');
+  var html='';
+  for(var i=0;i<3;i++){
+    html+=buildPrepSlotHTML(i);
+  }
+  el.innerHTML=html;
+  // Auto-refresh météo pour chaque slot avec date future
+  for(var j=0;j<3;j++){
+    (function(idx){
+      var slot=prepSlots[idx];
+      if(slot.date && slot.date>=today()){
+        var now=Date.now();
+        var age=slot.meteoTime?now-slot.meteoTime:Infinity;
+        // Refresh si pas de cache ou cache > 10 min
+        if(age>10*60*1000) fetchPrepMeteo(idx);
+        else updatePrepMeteoDisplay(idx);
+      }
+    })(j);
+  }
+}
+
+function buildPrepSlotHTML(i){
+  var slot=prepSlots[i];
+  var isExpired=slot.date && slot.date<today();
+  var isFuture=slot.date && slot.date>=today();
+  var isEmpty=!slot.date;
+  var html='<div class="prep-slot'+(isExpired?' expired':'')+'" id="prep-slot-'+i+'">';
+  html+='<div class="prep-slot-head">';
+  html+='<div class="prep-slot-num">'+(i+1)+'</div>';
+  html+='<div class="prep-slot-title">'+(slot.date?fmtShort(slot.date)+' · '+slot.lac:'Sortie '+(i+1)+' — non planifiée')+'</div>';
+  if(isExpired) html+='<span class="prep-expired-badge">⏰ Passée</span>';
+  if(!isEmpty) html+='<button class="prep-reset-btn" onclick="resetPrepSlot('+i+')">✕</button>';
+  html+='</div>';
+  html+='<div class="prep-slot-body">';
+
+  // Formulaire de saisie
+  html+='<div class="g2" style="margin-bottom:10px;">';
+  html+='<div class="form-row"><label>Date prévue</label><input type="date" class="inp" id="prep-date-'+i+'" value="'+(slot.date||'')+'" onchange="onPrepSlotChange('+i+')" style="font-size:0.82rem;padding:6px 9px;"/></div>';
+  html+='<div class="form-row"><label>Lac</label><select class="sel" id="prep-lac-'+i+'" onchange="onPrepSlotChange('+i+')" style="font-size:0.82rem;padding:6px 9px;">';
+  ['Lac Orient','Lac Temple','Lac Amance','Autre'].forEach(function(l){ html+='<option'+(l===slot.lac?' selected':'')+'>'+l+'</option>'; });
+  html+='</select></div></div>';
+  html+='<div class="form-row" style="margin-bottom:10px;"><label>Notes / intention</label><input type="text" class="inp" id="prep-notes-'+i+'" value="'+(slot.notes||'')+'" placeholder="Spot visé, technique à tester…" onchange="onPrepSlotChange('+i+')" style="font-size:0.82rem;padding:6px 9px;"/></div>';
+
+  if(isFuture){
+    // Zone météo
+    html+='<div id="prep-meteo-'+i+'">';
+    if(slot.meteoCache){
+      html+=buildMeteoHTML(slot.meteoCache, slot.date, slot.meteoTime);
+    } else {
+      html+='<div style="font-size:0.7rem;color:#aaa;padding:8px 0;">🔄 Chargement météo…</div>';
+    }
+    html+='</div>';
+
+    // Analyse historique
+    if(sorties.length>=1){
+      html+=buildHistoAnalyse(i);
+    } else {
+      html+='<div class="prep-no-data">Enregistre des sorties pour obtenir des recommandations 🎣</div>';
+    }
+  } else if(isExpired){
+    html+='<div class="prep-no-data" style="padding:8px 0;">Cette sortie est passée. Clique ✕ pour planifier une nouvelle.</div>';
+  } else {
+    html+='<div class="prep-no-data">Saisis une date pour lancer l\'analyse 👆</div>';
+  }
+
+  html+='</div></div>';
+  return html;
+}
+
+function buildMeteoHTML(m, dateStr, meteoTime){
+  var d=diffDays(dateStr, today());
+  var fiabiliteClass, fiabiliteTxt;
+  if(d<=3){ fiabiliteClass='green'; fiabiliteTxt='🟢 Fiable (J+'+d+')'; }
+  else if(d<=7){ fiabiliteClass='yellow'; fiabiliteTxt='🟡 Indicatif (J+'+d+')'; }
+  else { fiabiliteClass='red'; fiabiliteTxt='🔴 Tendance seulement (J+'+d+')'; }
+
+  var ago='';
+  if(meteoTime){ var mins=Math.round((Date.now()-meteoTime)/60000); ago=mins<1?'à l\'instant':mins+' min'; }
+
+  var html='<div class="prep-refresh-row">';
+  // Le bouton refresh est ajouté dynamiquement après render via id
+  var slotIdx=m._slotIdx!==undefined?m._slotIdx:'';
+  html+='<button class="prep-refresh-btn" onclick="fetchPrepMeteo('+slotIdx+')">🔄 Actualiser</button>';
+  html+='<span class="prep-refresh-time">'+(ago?'Mis à jour il y a '+ago:'')+'</span>';
+  html+='</div>';
+  html+='<div class="prep-meteo-box">';
+  html+='<div class="prep-meteo-main">'+m.emoji+' '+m.tempMin+'–'+m.tempMax+'°C · '+m.vent+' km/h'+(m.pression?' · '+m.pression+' hPa':'')+'</div>';
+  html+='<div class="prep-meteo-detail">'+m.desc+(m.precip?' · 💧 '+m.precip+' mm':'')+'</div>';
+  html+='<span class="prep-fiabilite '+fiabiliteClass+'">'+fiabiliteTxt+'</span>';
+  html+='</div>';
+
+  // Équipement suggéré
+  var equip=[];
+  if(m.precipRaw>2) equip.push('🧥 Veste imperméable');
+  if(m.ventRaw>30) equip.push('⚓ Ancre conseillée (vent fort)');
+  if(m.ventRaw>20&&m.ventRaw<=30) equip.push('🪝 Prévoir ancre');
+  if(m.tempMinRaw<8) equip.push('🧤 Gants + thermos');
+  else if(m.tempMinRaw<14) equip.push('🧣 Couche chaude');
+  if(m.tempMaxRaw>22) equip.push('🕶️ Lunettes polarisantes');
+  if(m.tempMaxRaw>25) equip.push('🧴 Crème solaire');
+  if(m.pressionRaw&&m.pressionRaw>1020) equip.push('📈 Pression haute → poissons actifs');
+  if(m.pressionRaw&&m.pressionRaw<1005) equip.push('📉 Pression basse → activité réduite');
+  if(equip.length) html+='<div class="prep-equip">🎒 <strong>Équipement suggéré :</strong><br>'+equip.join('<br>')+'</div>';
+
+  return html;
+}
+
+function buildHistoAnalyse(slotIdx){
+  var slot=prepSlots[slotIdx];
+  if(!slot.date) return '';
+  var targetWeek=weekOfYear(slot.date);
+  var targetMonth=parseInt(slot.date.split('-')[1]);
+
+  // Fenêtre ±3 semaines
+  var similaires=sorties.filter(function(s){
+    var sw=weekOfYear(s.date);
+    var diff=Math.abs(sw-targetWeek);
+    if(diff>26) diff=52-diff; // gestion fin/début d'année
+    return diff<=3 && s.lac===slot.lac;
+  }).sort(function(a,b){ return Math.abs(weekOfYear(a.date)-targetWeek)-Math.abs(weekOfYear(b.date)-targetWeek); });
+
+  var html='<div class="prep-histo-box">';
+  html+='<div class="prep-histo-title">📚 Analyse historique ±3 semaines · '+slot.lac+'</div>';
+
+  if(!similaires.length){
+    // Fallback: toutes sorties sur ce lac
+    var lacSorties=sorties.filter(function(s){return s.lac===slot.lac;});
+    if(!lacSorties.length){
+      html+='<div class="prep-no-data">Aucune sortie sur ce lac dans l\'historique.</div>';
+      html+='</div>'; return html;
+    }
+    html+='<div class="prep-no-data" style="margin-bottom:8px;">Pas de sortie dans cette fenêtre — recommandations globales sur '+slot.lac+'.</div>';
+    similaires=lacSorties.slice(0,5);
+  }
+
+  // Stats résumées
+  var nbS=similaires.length;
+  var totalCap=similaires.reduce(function(acc,s){return acc+(s.nbBrochet||0)+(s.nbPerche||0)+(s.nbSandre||0)+(s.nbSilure||0);},0);
+  var moy=Math.round(totalCap/nbS*10)/10;
+  html+='<div class="prep-stat-row">';
+  html+='<div class="prep-stat"><div class="prep-stat-val">'+nbS+'</div><div class="prep-stat-lbl">Sorties similaires</div></div>';
+  html+='<div class="prep-stat"><div class="prep-stat-val">'+moy+'</div><div class="prep-stat-lbl">Moy captures</div></div>';
+  html+='<div class="prep-stat"><div class="prep-stat-val">'+totalCap+'</div><div class="prep-stat-lbl">Total captures</div></div>';
+  html+='</div>';
+
+  // Recommandations
+  var cLeurre={},cLieu={},cFond={};
+  similaires.forEach(function(s){
+    if(s.leurresSouvenir) cLeurre[s.leurresSouvenir]=(cLeurre[s.leurresSouvenir]||0)+2; // leurre souvenir = poids x2
+    if(s.beauxPoissons) s.beauxPoissons.forEach(function(b){
+      if(b.leurre) cLeurre[b.leurre]=(cLeurre[b.leurre]||0)+1;
+      if(b.lieu) cLieu[b.lieu]=(cLieu[b.lieu]||0)+1;
+      if(b.fond&&b.fond!=='—') cFond[b.fond]=(cFond[b.fond]||0)+1;
+    });
+  });
+
+  var topLeurres=Object.keys(cLeurre).sort(function(a,b){return cLeurre[b]-cLeurre[a];}).slice(0,4);
+  var topLieux=Object.keys(cLieu).sort(function(a,b){return cLieu[b]-cLieu[a];}).slice(0,3);
+  var topFonds=Object.keys(cFond).sort(function(a,b){return cFond[b]-cFond[a];}).slice(0,3);
+
+  if(topLeurres.length){
+    html+='<div class="prep-reco"><div class="prep-reco-label">🎣 Leurres qui marchent</div><div class="prep-reco-items">';
+    topLeurres.forEach(function(l){ html+='<span class="prep-tag">'+l+'</span>'; });
+    html+='</div></div>';
+  }
+  if(topLieux.length){
+    html+='<div class="prep-reco"><div class="prep-reco-label">📍 Spots productifs</div><div class="prep-reco-items">';
+    topLieux.forEach(function(l){ html+='<span class="prep-tag spot">'+l+'</span>'; });
+    html+='</div></div>';
+  }
+  if(topFonds.length){
+    html+='<div class="prep-reco"><div class="prep-reco-label">🌊 Fonds / profondeurs</div><div class="prep-reco-items">';
+    topFonds.forEach(function(f){ html+='<span class="prep-tag fond">'+f+'</span>'; });
+    html+='</div></div>';
+  }
+
+  // Sorties similaires cliquables (max 5)
+  var shown=similaires.slice(0,5);
+  if(shown.length){
+    html+='<div class="prep-reco-label" style="margin-top:8px;">📋 Sorties similaires</div>';
+    shown.forEach(function(s){
+      var nb=(s.nbBrochet||0)+(s.nbPerche||0)+(s.nbSandre||0)+(s.nbSilure||0);
+      var leurre=s.leurresSouvenir||'';
+      html+='<div class="prep-sortie-sim" onclick="showTab(\'histo\');setTimeout(function(){toggleDetail('+s.id+');},100)">';
+      html+='<div class="prep-sortie-sim-date">'+fmtShort(s.date)+' · '+nb+' capture'+(nb>1?'s':'')+'</div>';
+      html+='<div class="prep-sortie-sim-detail">'+(leurre?'⭐ '+leurre+' · ':'')+(s.crew?'👥 '+s.crew:'Solo')+'</div>';
+      html+='</div>';
+    });
+  }
+
+  html+='</div>';
+  return html;
+}
+
+function onPrepSlotChange(i){
+  prepSlots[i].date=document.getElementById('prep-date-'+i).value;
+  prepSlots[i].lac=document.getElementById('prep-lac-'+i).value;
+  prepSlots[i].notes=document.getElementById('prep-notes-'+i).value;
+  prepSlots[i].meteoCache=null; prepSlots[i].meteoTime=null;
+  savePrepToFirebase();
+  // Re-render ce slot
+  var container=document.getElementById('prep-slot-'+i);
+  if(container){ var tmp=document.createElement('div'); tmp.innerHTML=buildPrepSlotHTML(i); container.parentNode.replaceChild(tmp.firstChild,container); }
+  if(prepSlots[i].date && prepSlots[i].date>=today()) fetchPrepMeteo(i);
+}
+
+function resetPrepSlot(i){
+  prepSlots[i]={date:'',lac:'Lac Orient',notes:'',meteoCache:null,meteoTime:null};
+  savePrepToFirebase();
+  var container=document.getElementById('prep-slot-'+i);
+  if(container){ var tmp=document.createElement('div'); tmp.innerHTML=buildPrepSlotHTML(i); container.parentNode.replaceChild(tmp.firstChild,container); }
+}
+
+function fetchPrepMeteo(i){
+  var slot=prepSlots[i];
+  if(!slot.date||slot.date<today()) return;
+  var zone=document.getElementById('prep-meteo-'+i);
+  if(zone) zone.innerHTML='<div style="font-size:0.7rem;color:#aaa;padding:8px 0;">🔄 Actualisation météo…</div>';
+  var d=diffDays(slot.date, today());
+  if(d>16){ if(zone) zone.innerHTML='<div style="font-size:0.7rem;color:#aaa;padding:8px 0;">📅 Prévisions disponibles jusqu\'à J+16 seulement</div>'; return; }
+  var url='https://api.open-meteo.com/v1/forecast?latitude=48.28&longitude=4.37&start_date='+slot.date+'&end_date='+slot.date+'&daily=temperature_2m_min,temperature_2m_max,wind_speed_10m_max,weather_code,pressure_msl_mean,precipitation_sum&timezone=Europe/Paris';
+  fetch(url).then(function(r){if(!r.ok)throw new Error();return r.json();}).then(function(data){
+    var daily=data.daily;
+    if(!daily||!daily.temperature_2m_max) throw new Error();
+    var code=daily.weather_code[0];
+    var cache={
+      _slotIdx:i,
+      emoji:wmoEmoji(code),
+      desc:wmoText(code),
+      tempMin:Math.round(daily.temperature_2m_min[0]),
+      tempMax:Math.round(daily.temperature_2m_max[0]),
+      tempMinRaw:daily.temperature_2m_min[0],
+      tempMaxRaw:daily.temperature_2m_max[0],
+      vent:Math.round(daily.wind_speed_10m_max[0]),
+      ventRaw:daily.wind_speed_10m_max[0],
+      pression:daily.pressure_msl_mean?Math.round(daily.pressure_msl_mean[0]):null,
+      pressionRaw:daily.pressure_msl_mean?daily.pressure_msl_mean[0]:null,
+      precip:daily.precipitation_sum?Math.round(daily.precipitation_sum[0]*10)/10:null,
+      precipRaw:daily.precipitation_sum?daily.precipitation_sum[0]:0
+    };
+    prepSlots[i].meteoCache=cache;
+    prepSlots[i].meteoTime=Date.now();
+    savePrepToFirebase();
+    updatePrepMeteoDisplay(i);
+  }).catch(function(){
+    if(zone) zone.innerHTML='<div style="font-size:0.7rem;color:#c05050;padding:8px 0;">⚠️ Météo indisponible pour cette date</div>';
+  });
+}
+
+function updatePrepMeteoDisplay(i){
+  var zone=document.getElementById('prep-meteo-'+i);
+  var slot=prepSlots[i];
+  if(zone&&slot.meteoCache){
+    slot.meteoCache._slotIdx=i;
+    zone.innerHTML=buildMeteoHTML(slot.meteoCache,slot.date,slot.meteoTime);
+  }
 }
 
 // ── PARSEUR ──
@@ -861,16 +1032,9 @@ function parseAndImport(){
   var blocks=txt.split(/(?=(?:Date\s*✅?|DATE)\s*[\n\r])/i).filter(function(b){return b.trim();});
   if(!blocks.length) blocks=[txt];
   var imported=0;
-  blocks.forEach(function(block){
-    var s=parseBlock(block);
-    if(s&&s.date){
-      var exists=sorties.find(function(x){return x.date===s.date&&x.lac===s.lac;});
-      if(!exists){sorties.push(s);imported++;}
-    }
-  });
+  blocks.forEach(function(block){ var s=parseBlock(block); if(s&&s.date){ var exists=sorties.find(function(x){return x.date===s.date&&x.lac===s.lac;}); if(!exists){sorties.push(s);imported++;} } });
   if(imported>0){
-    sorties.sort(function(a,b){return b.date.localeCompare(a.date);});
-    saveToFirebase();
+    sorties.sort(function(a,b){return b.date.localeCompare(a.date);}); saveToFirebase();
     document.getElementById('parse-result').innerHTML='<span style="color:#1a7a30;font-weight:700;">✅ '+imported+' sortie'+(imported>1?'s':'')+' importée'+(imported>1?'s':'')+'</span>';
     document.getElementById('parse-input').value='';
   } else {
@@ -879,124 +1043,41 @@ function parseAndImport(){
 }
 
 function parseBlock(txt){
-  function get(keys){
-    for(var i=0;i<keys.length;i++){
-      var re=new RegExp(keys[i]+'\\s*✅?\\s*[\\n\\r]+([^\\n\\r]+)','i');
-      var m=txt.match(re);
-      if(m&&m[1].trim()) return m[1].trim();
-    }
-    return '';
-  }
-  var dateRaw=get(['Date']);
-  if(!dateRaw) return null;
-  var date=parseDate(dateRaw);
-  if(!date) return null;
-  var lieuRaw=get(['Lieu']);
-  var lac=normaliseLac(lieuRaw);
-  var heureRaw=get(['heure','Heure']);
-  var hdebut='',hfin='';
-  if(heureRaw){
-    var hm=heureRaw.match(/(\d+)[h:](\d*)\s*[\/\-–à]\s*(\d+)[h:](\d*)/);
-    if(hm){hdebut=pad(parseInt(hm[1]))+':'+(hm[2]?pad(parseInt(hm[2])):'00');hfin=pad(parseInt(hm[3]))+':'+(hm[4]?pad(parseInt(hm[4])):'00');}
-  }
+  function get(keys){ for(var i=0;i<keys.length;i++){var re=new RegExp(keys[i]+'\\s*✅?\\s*[\\n\\r]+([^\\n\\r]+)','i');var m=txt.match(re);if(m&&m[1].trim())return m[1].trim();}return ''; }
+  var dateRaw=get(['Date']); if(!dateRaw) return null;
+  var date=parseDate(dateRaw); if(!date) return null;
+  var lieuRaw=get(['Lieu']); var lac=normaliseLac(lieuRaw);
+  var heureRaw=get(['heure','Heure']); var hdebut='',hfin='';
+  if(heureRaw){var hm=heureRaw.match(/(\d+)[h:](\d*)\s*[\/\-–à]\s*(\d+)[h:](\d*)/);if(hm){hdebut=pad(parseInt(hm[1]))+':'+(hm[2]?pad(parseInt(hm[2])):'00');hfin=pad(parseInt(hm[3]))+':'+(hm[4]?pad(parseInt(hm[4])):'00');}}
   var crew=get(['Avec','avec']);
-  var teauRaw=get(['T eau','T° eau','Teau']);
-  var teau='';if(teauRaw){var tm=teauRaw.match(/(\d+)/);if(tm)teau=tm[1];}
-  var tairRaw=get(['T air','T° air']);
-  var tair='';if(tairRaw){var tam=tairRaw.match(/(\d+)/);if(tam)tair=tam[1];}
-  var ventRaw=get(['vitesse','Vitesse']);
-  var vent='';if(ventRaw){var vm=ventRaw.match(/(\d+)/);if(vm)vent=vm[1];}
-  var cielRaw=get(['météo','Météo','meteo']);
-  var ciel=normaliseCiel(cielRaw);
+  var teauRaw=get(['T eau','T° eau','Teau']);var teau='';if(teauRaw){var tm=teauRaw.match(/(\d+)/);if(tm)teau=tm[1];}
+  var tairRaw=get(['T air','T° air']);var tair='';if(tairRaw){var tam=tairRaw.match(/(\d+)/);if(tam)tair=tam[1];}
+  var ventRaw=get(['vitesse','Vitesse']);var vent='';if(ventRaw){var vm=ventRaw.match(/(\d+)/);if(vm)vent=vm[1];}
+  var cielRaw=get(['météo','Météo','meteo']);var ciel=normaliseCiel(cielRaw);
   var leurreRaw=get(['leurre du jour','Leurre du jour','Leurres','leurre','Leurre']);
   var moraleRaw=get(['Morale du jour','morale du jour']);
   var anecdoteRaw=get(['Anecdote','anecdote','Note']);
-
-  var nbBrochet=0,nbPerche=0,nbSandre=0,nbSilure=0;
-  var beauxPoissons=[];
+  var nbBrochet=0,nbPerche=0,nbSandre=0,nbSilure=0,beauxPoissons=[];
   var espLines=txt.match(/espèce\s*[\n\r]+([^\n\r]*)/gi)||[];
   var tailleLines=txt.match(/taille\s*[\n\r]+([^\n\r]*)/gi)||[];
   espLines.forEach(function(line,i){
-    var espRaw=line.replace(/espèce\s*[\n\r]+/i,'').trim();
-    if(!espRaw) return;
-    var espece=normaliseEspece(espRaw);
-    if(!espece) return;
-    var nbMatch=espRaw.match(/(\d+)/);
-    var nb=nbMatch?parseInt(nbMatch[1]):1;
-    if(espece==='Brochet') nbBrochet+=nb;
-    if(espece==='Perche') nbPerche+=nb;
-    if(espece==='Sandre') nbSandre+=nb;
-    if(espece==='Silure') nbSilure+=nb;
-    if(tailleLines[i]){
-      var tailleRaw=tailleLines[i].replace(/taille\s*[\n\r]+/i,'').trim();
-      if(tailleRaw){
-        var tailles=tailleRaw.match(/\d+/g);
-        if(tailles){
-          var gros=Math.max.apply(null,tailles.map(Number));
-          beauxPoissons.push({espece:espece,joueur:'',leurre:leurreRaw||'',taille:gros.toString()});
-        }
-      }
-    }
+    var espRaw=line.replace(/espèce\s*[\n\r]+/i,'').trim();if(!espRaw)return;
+    var espece=normaliseEspece(espRaw);if(!espece)return;
+    var nbMatch=espRaw.match(/(\d+)/);var nb=nbMatch?parseInt(nbMatch[1]):1;
+    if(espece==='Brochet')nbBrochet+=nb;if(espece==='Perche')nbPerche+=nb;if(espece==='Sandre')nbSandre+=nb;if(espece==='Silure')nbSilure+=nb;
+    if(tailleLines[i]){var tailleRaw=tailleLines[i].replace(/taille\s*[\n\r]+/i,'').trim();if(tailleRaw){var tailles=tailleRaw.match(/\d+/g);if(tailles){var gros=Math.max.apply(null,tailles.map(Number));beauxPoissons.push({espece:espece,joueur:'',lieu:'',fond:'',leurre:leurreRaw||'',taille:gros.toString()});}}}
   });
-
-  return {
-    id:Date.now()+Math.random(),
-    date:date,lac:lac,hdebut:hdebut,hfin:hfin,crew:crew,
-    tair:tair,vent:vent,pression:'',teau:teau,ciel:ciel,
-    nbBrochet:nbBrochet,nbPerche:nbPerche,nbSandre:nbSandre,nbSilure:nbSilure,
-    beauxPoissons:beauxPoissons,
-    leurresSouvenir:leurreRaw||'',
-    morale:0,moraleTxt:moraleRaw||'',
-    notes:anecdoteRaw||'',
-    isCCDay:false
-  };
+  return {id:Date.now()+Math.random(),date:date,lac:lac,hdebut:hdebut,hfin:hfin,crew:crew,tair:tair,vent:vent,pression:'',teau:teau,cielMatin:ciel,cielApm:'',nbBrochet:nbBrochet,nbPerche:nbPerche,nbSandre:nbSandre,nbSilure:nbSilure,beauxPoissons:beauxPoissons,leurresSouvenir:leurreRaw||'',morale:0,moraleTxt:moraleRaw||'',notes:anecdoteRaw||'',isCCDay:false};
 }
 
-function parseDate(s){
-  if(!s) return null;
-  var m=s.match(/(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.]?(\d{2,4})?/);
-  if(!m) return null;
-  var d=parseInt(m[1]),mo=parseInt(m[2]),y=m[3]?parseInt(m[3]):new Date().getFullYear();
-  if(y<100) y+=2000;
-  return y+'-'+pad(mo)+'-'+pad(d);
-}
-
-function normaliseLac(s){
-  if(!s) return 'Lac Orient';
-  s=s.toLowerCase();
-  if(s.indexOf('amance')>-1) return 'Lac Amance';
-  if(s.indexOf('temple')>-1) return 'Lac Temple';
-  return 'Lac Orient';
-}
-
-function normaliseEspece(s){
-  if(!s) return null;
-  s=s.toLowerCase();
-  if(s.indexOf('brochet')>-1) return 'Brochet';
-  if(s.indexOf('perche')>-1) return 'Perche';
-  if(s.indexOf('sandre')>-1) return 'Sandre';
-  if(s.indexOf('silure')>-1) return 'Silure';
-  return null;
-}
-
-function normaliseCiel(s){
-  if(!s) return '';
-  s=s.toLowerCase();
-  if(s.indexOf('brouillard')>-1) return '🌫️ Brumeux';
-  if(s.indexOf('orage')>-1) return '⛈️ Orageux';
-  if(s.indexOf('pluie')>-1||s.indexOf('pluvieux')>-1) return '🌧️ Pluvieux';
-  if(s.indexOf('nuag')>-1&&s.indexOf('soleil')>-1) return '⛅ Partiellement nuageux';
-  if(s.indexOf('couvert')>-1||s.indexOf('gris')>-1) return '☁️ Couvert';
-  if(s.indexOf('soleil')>-1) return '☀️ Ensoleillé';
-  if(s.indexOf('lourd')>-1) return '☁️ Couvert';
-  return '';
-}
+function parseDate(s){if(!s)return null;var m=s.match(/(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.]?(\d{2,4})?/);if(!m)return null;var d=parseInt(m[1]),mo=parseInt(m[2]),y=m[3]?parseInt(m[3]):new Date().getFullYear();if(y<100)y+=2000;return y+'-'+pad(mo)+'-'+pad(d);}
+function normaliseLac(s){if(!s)return 'Lac Orient';s=s.toLowerCase();if(s.indexOf('amance')>-1)return 'Lac Amance';if(s.indexOf('temple')>-1)return 'Lac Temple';return 'Lac Orient';}
+function normaliseEspece(s){if(!s)return null;s=s.toLowerCase();if(s.indexOf('brochet')>-1)return 'Brochet';if(s.indexOf('perche')>-1)return 'Perche';if(s.indexOf('sandre')>-1)return 'Sandre';if(s.indexOf('silure')>-1)return 'Silure';return null;}
+function normaliseCiel(s){if(!s)return '';s=s.toLowerCase();if(s.indexOf('brouillard')>-1)return '🌫️ Brumeux';if(s.indexOf('orage')>-1)return '⛈️ Orageux';if(s.indexOf('pluie')>-1||s.indexOf('pluvieux')>-1)return '🌧️ Pluvieux';if(s.indexOf('nuag')>-1&&s.indexOf('soleil')>-1)return '⛅ Partiellement nuageux';if(s.indexOf('couvert')>-1||s.indexOf('gris')>-1)return '☁️ Couvert';if(s.indexOf('soleil')>-1)return '☀️ Ensoleillé';return '';}
 
 // ── FIREBASE ──
-function saveToFirebase(){
-  if(!firebaseReady||!dbRef) return;
-  dbRef.set({sorties:sorties});
-}
+function saveToFirebase(){ if(!firebaseReady||!dbRef)return; dbRef.set({sorties:sorties}); }
+function savePrepToFirebase(){ if(!firebaseReady||!prepRef)return; prepRef.set({slots:prepSlots}); }
 
 // ── INIT ──
 buildTimeOptions('f-hdebut','06:00');
@@ -1023,6 +1104,7 @@ window.addEventListener('load',function(){
           });
           var db=firebase.database();
           dbRef=db.ref('journalpeche');
+          prepRef=db.ref('journalpeche_prep');
           firebaseReady=true;
 
           db.ref('.info/connected').on('value',function(snap){
@@ -1030,21 +1112,21 @@ window.addEventListener('load',function(){
             if(el){el.textContent=snap.val()?'🟢 Synchronisé':'🔴 Hors ligne';el.style.color=snap.val()?'#3a8a30':'#c05050';}
           });
 
-          dbRef.on('value',function(snap){
+          dbRef.on('value',function(snap){ var data=snap.val(); if(data&&data.sorties) sorties=data.sorties; });
+
+          prepRef.on('value',function(snap){
             var data=snap.val();
-            if(data&&data.sorties) sorties=data.sorties;
+            if(data&&data.slots&&Array.isArray(data.slots)){
+              data.slots.forEach(function(s,i){ if(prepSlots[i]) Object.assign(prepSlots[i],s); });
+            }
           });
 
           db.ref('cccup/days').on('value',function(snap){
             var data=snap.val();
-            if(data){
-              cccupData=data;
-              cccupDates=data.map(function(d){return d.dateISO||'';}).filter(Boolean);
-              checkCCImport();
-            }
+            if(data){ cccupData=data; cccupDates=data.map(function(d){return d.dateISO||'';}).filter(Boolean); checkCCImport(); }
           });
 
-        } catch(e){document.getElementById('syncStatus').textContent='⚠️ Erreur Firebase';}
+        } catch(e){ document.getElementById('syncStatus').textContent='⚠️ Erreur Firebase'; }
       };
       document.head.appendChild(s2);
     };
