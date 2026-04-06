@@ -37,23 +37,23 @@ textarea.inp { resize:vertical; min-height:60px; }
 .fetch-btn { padding:7px 12px; border-radius:7px; border:1px solid #1a6a9a; background:#fff; color:#1a6a9a; font-size:0.68rem; font-weight:800; cursor:pointer; white-space:nowrap; }
 .meteo-result { background:#f0f7ff; border:1px solid #c8dff0; border-radius:8px; padding:9px 12px; margin-bottom:10px; font-size:0.8rem; font-weight:700; color:#1a6a9a; }
 
-/* MORALE */
+/* MORALE — Fix: 5 boutons avec bon ordre */
 .morale-row { display:flex; gap:10px; margin-bottom:8px; }
 .morale-btn { font-size:1.6rem; cursor:pointer; opacity:0.35; transition:all .15s; border:none; background:none; padding:2px; }
 .morale-btn.active { opacity:1; transform:scale(1.2); }
 
 /* CAPTURES DU JOUR */
 .esp-counter { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
-.esp-label { font-size:0.88rem; font-weight:800; min-width:70px; }
+.esp-label { font-size:0.88rem; font-weight:800; min-width:90px; }
 .ctr { display:flex; align-items:center; gap:8px; }
 .ctr-btn { width:30px; height:30px; border-radius:6px; border:1px solid #ddd; background:#f5f5f5; color:#555; cursor:pointer; font-size:1.1rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
 .ctr-btn:active { background:#e0e0e0; }
 .ctr-val { font-size:1.4rem; font-weight:900; min-width:28px; text-align:center; color:#1a6a9a; }
 
-/* BEAUX POISSONS */
-.bp-headers { display:grid; grid-template-columns:80px 1fr 1fr 50px 28px; gap:5px; margin-bottom:4px; }
+/* BEAUX POISSONS — colonnes avec joueur */
+.bp-headers { display:grid; grid-template-columns:75px 90px 1fr 45px 28px; gap:4px; margin-bottom:4px; }
 .bp-headers span { font-size:0.56rem; font-weight:700; letter-spacing:1px; color:#bbb; text-transform:uppercase; }
-.bp-row { display:grid; grid-template-columns:80px 1fr 1fr 50px 28px; gap:5px; align-items:center; margin-bottom:6px; }
+.bp-row { display:grid; grid-template-columns:75px 90px 1fr 45px 28px; gap:4px; align-items:center; margin-bottom:6px; }
 .bp-row .sel, .bp-row .inp { padding:6px 7px; font-size:0.8rem; }
 .bp-del { width:26px; height:26px; border-radius:6px; border:1px solid #fcc; background:#fff5f5; color:#c05050; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .add-btn { width:100%; padding:8px; border-radius:8px; border:1px dashed #1a6a9a; background:#f0f7ff; color:#1a6a9a; font-size:0.72rem; font-weight:800; cursor:pointer; margin-top:4px; }
@@ -75,6 +75,8 @@ textarea.inp { resize:vertical; min-height:60px; }
 .slabel::before,.slabel::after { content:''; flex:1; height:1px; background:#ddd; }
 
 /* HISTORIQUE */
+.histo-toolbar { display:flex; justify-content:flex-end; margin-bottom:10px; }
+.del-all-btn { padding:6px 13px; border-radius:7px; border:1px solid #fcc; background:#fff5f5; color:#c05050; font-size:0.62rem; font-weight:800; cursor:pointer; letter-spacing:1px; }
 .year-title { font-size:1.2rem; font-weight:900; color:#111; margin:14px 0 8px; display:flex; justify-content:space-between; align-items:center; }
 .year-count { font-size:0.6rem; color:#aaa; font-weight:600; }
 .sortie-card { background:#fff; border:1px solid #ddd; border-radius:10px; margin-bottom:8px; overflow:hidden; }
@@ -115,6 +117,19 @@ textarea.inp { resize:vertical; min-height:60px; }
 .best-emoji { font-size:1.5rem; }
 .best-val { font-size:0.92rem; font-weight:900; color:#111; }
 .best-sub { font-size:0.62rem; color:#aaa; margin-top:1px; }
+/* Records par espèce */
+.record-row { background:#fff; border:1px solid #ddd; border-radius:10px; padding:10px 13px; margin-bottom:7px; }
+.record-esp { font-size:0.68rem; font-weight:800; letter-spacing:2px; color:#888; text-transform:uppercase; margin-bottom:6px; }
+.record-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; }
+.record-item { text-align:center; }
+.record-item-val { font-size:1.1rem; font-weight:900; color:#1a6a9a; }
+.record-item-lbl { font-size:0.52rem; color:#aaa; letter-spacing:1px; text-transform:uppercase; }
+/* Tendances */
+.trend-card { background:#fff; border:1px solid #ddd; border-radius:10px; padding:11px 13px; margin-bottom:7px; }
+.trend-esp { font-size:0.68rem; font-weight:800; color:#333; margin-bottom:4px; }
+.trend-bar-wrap { background:#f0f0f0; border-radius:4px; height:8px; margin:4px 0; overflow:hidden; }
+.trend-bar { height:8px; border-radius:4px; background:#1a6a9a; transition:width .4s; }
+.trend-lbl { display:flex; justify-content:space-between; font-size:0.58rem; color:#aaa; }
 
 /* PARSEUR */
 .parser-area { width:100%; min-height:120px; padding:10px; border:1px solid #ddd; border-radius:8px; font-size:0.8rem; font-family:system-ui,-apple-system,sans-serif; outline:none; background:#fafafa; resize:vertical; margin-bottom:10px; }
@@ -154,7 +169,14 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
   <div class="card">
     <div class="card-title">📅 Sortie</div>
     <div class="g2">
-      <div class="form-row"><label>Date</label><input type="date" class="inp" id="f-date" onchange="onDateChange()"/></div>
+      <div class="form-row">
+        <label>Date</label>
+        <!-- FIX: onblur + onchange pour fermer le picker sur PC -->
+        <input type="date" class="inp" id="f-date"
+          onchange="onDateChange(); this.blur();"
+          onkeydown="if(event.key==='Enter'||event.key==='Tab'){this.blur();onDateChange();}"
+        />
+      </div>
       <div class="form-row"><label>Lac</label>
         <select class="sel" id="f-lac" onchange="updateLieux()">
           <option>Lac Orient</option><option>Lac Temple</option><option>Lac Amance</option><option>Autre</option>
@@ -169,7 +191,13 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
   </div>
 
   <div class="card">
-    <div class="card-title">🌤️ Météo & Eau</div>
+    <div class="card-title">🌤️ Météo &amp; Eau</div>
+    <!-- FIX: Bouton fetch météo — T° air, vent, pression auto / ciel manuel -->
+    <div class="fetch-row">
+      <button class="fetch-btn" onclick="fetchMeteo()">🌐 Récupérer météo</button>
+      <span style="font-size:0.65rem;color:#aaa;">T°, vent, pression automatiques · ciel à renseigner</span>
+    </div>
+    <div id="meteo-zone"></div>
     <div class="g3">
       <div class="form-row"><label>T° air</label><input type="number" class="inp" id="f-tair" placeholder="°C"/></div>
       <div class="form-row"><label>Vent km/h</label><input type="number" class="inp" id="f-vent" placeholder="km/h"/></div>
@@ -177,7 +205,8 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
     </div>
     <div class="g2">
       <div class="form-row"><label>T° eau (sondeur)</label><input type="number" class="inp" id="f-teau" placeholder="°C"/></div>
-      <div class="form-row"><label>Ciel</label>
+      <!-- FIX: Ciel toujours manuel -->
+      <div class="form-row"><label>Ciel (manuel)</label>
         <select class="sel" id="f-ciel">
           <option value="">—</option>
           <option>☀️ Ensoleillé</option><option>⛅ Partiellement nuageux</option>
@@ -188,7 +217,7 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
     </div>
   </div>
 
-  <!-- CAPTURES DU JOUR -->
+  <!-- CAPTURES DU JOUR — FIX: +Sandre +Silure -->
   <div class="card">
     <div class="card-title">🐟 Captures du jour</div>
     <div class="esp-counter">
@@ -207,14 +236,31 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
         <button class="ctr-btn" onclick="changeCap('perche',1)">+</button>
       </div>
     </div>
+    <!-- FIX: Sandre et Silure -->
+    <div class="esp-counter">
+      <span class="esp-label">⚡ Sandre</span>
+      <div class="ctr">
+        <button class="ctr-btn" onclick="changeCap('sandre',-1)">−</button>
+        <span class="ctr-val" id="nb-sandre">0</span>
+        <button class="ctr-btn" onclick="changeCap('sandre',1)">+</button>
+      </div>
+    </div>
+    <div class="esp-counter">
+      <span class="esp-label">🐉 Silure</span>
+      <div class="ctr">
+        <button class="ctr-btn" onclick="changeCap('silure',-1)">−</button>
+        <span class="ctr-val" id="nb-silure">0</span>
+        <button class="ctr-btn" onclick="changeCap('silure',1)">+</button>
+      </div>
+    </div>
   </div>
 
-  <!-- BEAUX POISSONS -->
+  <!-- BEAUX POISSONS — FIX: colonne Joueur -->
   <div class="card">
     <div class="card-title">🏆 Beaux poissons</div>
     <div id="cc-import-zone"></div>
     <div class="bp-headers">
-      <span>Espèce</span><span>Lieu · Fond</span><span>Leurre</span><span>Taille</span><span></span>
+      <span>Espèce</span><span>Joueur</span><span>Leurre</span><span>Taille</span><span></span>
     </div>
     <div id="bp-list"></div>
     <button class="add-btn" onclick="addBP()">+ Ajouter un beau poisson</button>
@@ -225,14 +271,15 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
     <input type="text" class="inp" id="f-leurre-souvenir" placeholder="Le leurre / technique qui a fait la différence…"/>
   </div>
 
+  <!-- FIX: Morale — ordre 🤬😠😣😁🤩 -->
   <div class="card">
     <div class="card-title">😤 Morale du jour</div>
     <div class="morale-row">
-      <button class="morale-btn" onclick="setMorale(1)" id="m1">😤</button>
-      <button class="morale-btn" onclick="setMorale(2)" id="m2">😕</button>
-      <button class="morale-btn" onclick="setMorale(3)" id="m3">😐</button>
-      <button class="morale-btn" onclick="setMorale(4)" id="m4">😊</button>
-      <button class="morale-btn" onclick="setMorale(5)" id="m5">🤩</button>
+      <button class="morale-btn" onclick="setMorale(1)" id="m1" title="Nul">🤬</button>
+      <button class="morale-btn" onclick="setMorale(2)" id="m2" title="Bof">😠</button>
+      <button class="morale-btn" onclick="setMorale(3)" id="m3" title="Moyen">😣</button>
+      <button class="morale-btn" onclick="setMorale(4)" id="m4" title="Bien">😁</button>
+      <button class="morale-btn" onclick="setMorale(5)" id="m5" title="Excellent">🤩</button>
     </div>
     <input type="text" class="inp" id="f-morale-txt" placeholder="La phrase du jour…"/>
   </div>
@@ -274,24 +321,22 @@ var LIEUX = {
   'Autre': ['Autre']
 };
 var FONDS = [
-  '—',
-  'Bordures / Berges',
-  'Herbiers 0-3m',
-  'Herbiers 3-5m',
-  'Tapis d\'herbes 5-6m',
-  'Cassure 6-8m',
-  'Cassure 8-10m',
-  'Cassure 10-12m',
-  'Cassure 12-15m',
-  'Profond 10-12m',
-  'Profond 12-15m'
+  '—','Bordures / Berges','Herbiers 0-3m','Herbiers 3-5m','Tapis d\'herbes 5-6m',
+  'Cassure 6-8m','Cassure 8-10m','Cassure 10-12m','Cassure 12-15m','Profond 10-12m','Profond 12-15m'
 ];
-var MORALES = ['','😤','😕','😐','😊','🤩'];
+
+// FIX: MORALES avec bon ordre 🤬😠😣😁🤩
+var MORALES = ['','🤬','😠','😣','😁','🤩'];
+
+// FIX: Toutes les espèces incluant Sandre et Silure
+var ESPECES = ['Brochet','Perche','Sandre','Silure','Autre'];
+var ESP_EMOJI = {Brochet:'🐟',Perche:'🐠',Sandre:'⚡',Silure:'🐉',Autre:'🐟'};
 
 var sorties = [];
 var morale = 0;
 var bpCount = 0;
-var nbCaps = {brochet:0, perche:0};
+// FIX: Compteurs étendus
+var nbCaps = {brochet:0, perche:0, sandre:0, silure:0};
 var editingId = null;
 var firebaseReady = false;
 var dbRef = null;
@@ -331,7 +376,6 @@ function showTab(t){
 // ── LIEUX ──
 function updateLieux(){
   var lac=document.getElementById('f-lac').value;
-  var lieux=LIEUX[lac]||['Autre'];
   document.querySelectorAll('.bp-lieu').forEach(function(sel){
     var cur=sel.value;
     sel.innerHTML=lieuxOpts(lac,cur);
@@ -360,27 +404,35 @@ function changeCap(esp, d){
   document.getElementById('nb-'+esp).textContent=nbCaps[esp];
 }
 
-// ── BEAUX POISSONS ──
+// ── BEAUX POISSONS — FIX: colonne Joueur + espèces étendues ──
+function espOpts(selected){
+  return ESPECES.map(function(e){
+    return '<option'+(e===selected?' selected':'')+'>'+e+'</option>';
+  }).join('');
+}
+
+function joueurOpts(selected){
+  var joueurs=['Guillaume','Kevin','Mickael','Autre'];
+  return '<option value="">—</option>'+joueurs.map(function(j){
+    return '<option'+(j===selected?' selected':'')+'>'+j+'</option>';
+  }).join('');
+}
+
 function addBP(d){
   d=d||{};
   var id=bpCount++;
   var lac=document.getElementById('f-lac').value;
-  var espOpts=['Brochet','Perche'].map(function(e){return '<option'+(d.espece===e?' selected':'')+'>'+e+'</option>';}).join('');
   var row=document.createElement('div');
   row.id='bp-'+id;
   row.innerHTML='<div class="bp-row">'
-    +'<select class="sel" id="besp-'+id+'">'+espOpts+'</select>'
-    +'<div style="display:flex;flex-direction:column;gap:3px;">'
-    +'<select class="sel bp-lieu" id="blieu-'+id+'" onchange="onLieuChange(this)">'+lieuxOpts(lac,d.lieu||'')+'</select>'
-    +'<div id="bautre-'+id+'" class="lieu-autre"><input class="inp" type="text" id="blieuautre-'+id+'" placeholder="Préciser…" value="'+(d.lieuAutre||'')+'"/></div>'
-    +'<select class="sel" id="bfond-'+id+'">'+fondsOpts(d.fond||'')+'</select>'
-    +'</div>'
+    +'<select class="sel" id="besp-'+id+'">'+espOpts(d.espece||'Brochet')+'</select>'
+    // FIX: Joueur à la place de Lieu·Fond (simplifié)
+    +'<select class="sel" id="bjoueur-'+id+'">'+joueurOpts(d.joueur||'')+'</select>'
     +'<input class="inp" type="text" id="bleurre-'+id+'" placeholder="Leurre…" value="'+(d.leurre||'')+'"/>'
     +'<input class="inp" type="number" id="btaille-'+id+'" placeholder="cm" value="'+(d.taille||'')+'" style="-moz-appearance:textfield"/>'
     +'<button class="bp-del" onclick="delBP('+id+')">×</button>'
     +'</div>';
   document.getElementById('bp-list').appendChild(row);
-  if(d.lieu==='Autre'&&d.lieuAutre) document.getElementById('bautre-'+id).style.display='block';
 }
 
 function delBP(id){ var el=document.getElementById('bp-'+id); if(el) el.remove(); }
@@ -389,12 +441,9 @@ function getBPs(){
   var bps=[];
   document.querySelectorAll('[id^="besp-"]').forEach(function(el){
     var id=el.id.replace('besp-','');
-    var lieu=document.getElementById('blieu-'+id).value;
-    var lieuFinal=lieu==='Autre'?(document.getElementById('blieuautre-'+id).value||'Autre'):lieu;
     bps.push({
       espece:el.value,
-      lieu:lieuFinal,
-      fond:document.getElementById('bfond-'+id).value||'',
+      joueur:document.getElementById('bjoueur-'+id)?document.getElementById('bjoueur-'+id).value:'',
       leurre:document.getElementById('bleurre-'+id).value||'',
       taille:document.getElementById('btaille-'+id).value||''
     });
@@ -411,7 +460,6 @@ function checkCCImport(){
   var date=document.getElementById('f-date').value;
   var zone=document.getElementById('cc-import-zone');
   if(!date||cccupDates.indexOf(date)===-1){ zone.innerHTML=''; return; }
-  // Vérifier si jour vide dans CC Cup
   var day=cccupData.find(function(d){return d.dateISO===date;});
   if(!day){ zone.innerHTML=''; return; }
   var hasData=day.anglers&&day.anglers.some(function(a){
@@ -424,72 +472,89 @@ function checkCCImport(){
   }
 }
 
+// FIX: Import CC Cup — volume captures dans compteurs + nom joueur sur chaque beau poisson
 function importFromCC(){
   var date=document.getElementById('f-date').value;
   var day=cccupData.find(function(d){return d.dateISO===date;});
   if(!day) return;
-  var NAMES=['Guillaume','Kevin','Mickael'];
+
+  var PLAYER_NAMES=['Guillaume','Kevin','Mickael'];
+  var totalPike=0, totalPerch=0;
   var imported=false;
-  day.anglers.forEach(function(a,i){
+
+  day.anglers.forEach(function(a, i){
+    var joueurName = PLAYER_NAMES[i] || ('Joueur '+(i+1));
+
+    // FIX: Accumule le volume total dans les compteurs
+    if(a.counts){
+      totalPike += (a.counts.pike||0);
+      totalPerch += (a.counts.perch||0);
+    }
+
+    // FIX: Ajoute chaque beau poisson avec le nom du joueur
     if(a.sizes){
-      if(a.sizes.pike&&parseFloat(a.sizes.pike)>0){
-        addBP({espece:'Brochet',taille:a.sizes.pike,leurre:'',lieu:'',fond:''});
+      if(a.sizes.pike && parseFloat(a.sizes.pike)>0){
+        addBP({espece:'Brochet', joueur:joueurName, taille:a.sizes.pike, leurre:''});
         imported=true;
       }
-      if(a.sizes.perch&&parseFloat(a.sizes.perch)>0){
-        addBP({espece:'Perche',taille:a.sizes.perch,leurre:'',lieu:'',fond:''});
+      if(a.sizes.perch && parseFloat(a.sizes.perch)>0){
+        addBP({espece:'Perche', joueur:joueurName, taille:a.sizes.perch, leurre:''});
         imported=true;
       }
     }
   });
-  if(imported) document.getElementById('cc-import-zone').innerHTML='<div style="font-size:0.72rem;color:#1a7a30;margin-bottom:8px;">✅ Importé — complète lieu et leurre</div>';
+
+  // FIX: Met à jour les compteurs globaux
+  if(totalPike>0){
+    nbCaps.brochet += totalPike;
+    document.getElementById('nb-brochet').textContent = nbCaps.brochet;
+  }
+  if(totalPerch>0){
+    nbCaps.perche += totalPerch;
+    document.getElementById('nb-perche').textContent = nbCaps.perche;
+  }
+
+  if(imported||totalPike||totalPerch){
+    document.getElementById('cc-import-zone').innerHTML='<div style="font-size:0.72rem;color:#1a7a30;margin-bottom:8px;">✅ Importé — '+totalPike+' brochet(s) · '+totalPerch+' perche(s) · complète les leurres</div>';
+  }
 }
 
-// ── MÉTÉO ──
+// ── MÉTÉO — FIX: T° air + vent + pression auto, ciel reste manuel ──
 function fetchMeteo(){
   var date=document.getElementById('f-date').value;
   if(!date){alert('Sélectionne une date.');return;}
   var zone=document.getElementById('meteo-zone');
   zone.innerHTML='<div style="font-size:0.7rem;color:#aaa;margin-bottom:8px;">🔄 Récupération…</div>';
 
-  var today=new Date().toISOString().split('T')[0];
-  var diffDays=Math.floor((new Date(today)-new Date(date))/(1000*60*60*24));
+  var todayStr=new Date().toISOString().split('T')[0];
+  var diffDays=Math.floor((new Date(todayStr)-new Date(date))/(1000*60*60*24));
 
   var url;
   if(diffDays<=5){
-    // Données récentes ou futures → forecast
     url='https://api.open-meteo.com/v1/forecast?latitude=48.28&longitude=4.37&start_date='+date+'&end_date='+date+'&daily=temperature_2m_mean,temperature_2m_max,wind_speed_10m_max,weather_code,pressure_msl_mean&timezone=Europe/Paris';
   } else {
-    // Données historiques → archive
     url='https://archive-api.open-meteo.com/v1/archive?latitude=48.28&longitude=4.37&start_date='+date+'&end_date='+date+'&daily=temperature_2m_mean,temperature_2m_max,wind_speed_10m_max,weather_code,pressure_msl_mean&timezone=Europe/Paris';
   }
 
   fetch(url)
-    .then(function(r){
-      if(!r.ok) throw new Error('HTTP '+r.status);
-      return r.json();
-    })
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
     .then(function(data){
       if(!data.daily||!data.daily.temperature_2m_mean) throw new Error('Données manquantes');
       var temp=Math.round(data.daily.temperature_2m_mean[0]);
       var tempMax=Math.round(data.daily.temperature_2m_max[0]);
       var vent=Math.round(data.daily.wind_speed_10m_max[0]);
-      var code=data.daily.weather_code[0];
       var pres=data.daily.pressure_msl_mean?Math.round(data.daily.pressure_msl_mean[0]):null;
-      var cond=wmoText(code);
+      // FIX: Auto-remplit T° air, vent, pression — ciel laissé manuel
       document.getElementById('f-tair').value=temp;
       document.getElementById('f-vent').value=vent;
-      document.getElementById('f-ciel').value=cond;
       if(pres) document.getElementById('f-pression').value=pres;
-      zone.innerHTML='<div class="meteo-result">'+wmoEmoji(code)+' '+cond+' · '+temp+'°C (max '+tempMax+'°C) · '+vent+' km/h'+(pres?' · '+pres+' hPa':'')+'</div>';
+      // f-ciel N'EST PAS touché — rester manuel
+      zone.innerHTML='<div class="meteo-result">✅ '+temp+'°C (max '+tempMax+'°C) · '+vent+' km/h'+(pres?' · '+pres+' hPa':'')+'<br><span style="font-size:0.7rem;color:#888;">Choisis le ciel manuellement ↓</span></div>';
     })
-    .catch(function(err){
+    .catch(function(){
       zone.innerHTML='<div style="font-size:0.7rem;color:#c05050;margin-bottom:8px;">⚠️ Météo indisponible pour cette date — renseigne manuellement</div>';
     });
 }
-
-function wmoEmoji(c){ if(c===0)return'☀️'; if(c<=2)return'⛅'; if(c<=3)return'☁️'; if(c<=49)return'🌫️'; if(c<=82)return'🌧️'; return'⛈️'; }
-function wmoText(c){ if(c===0)return'☀️ Ensoleillé'; if(c<=2)return'⛅ Partiellement nuageux'; if(c<=3)return'☁️ Couvert'; if(c<=49)return'🌫️ Brumeux'; if(c<=82)return'🌧️ Pluvieux'; return'⛈️ Orageux'; }
 
 // ── MORALE ──
 function setMorale(v){
@@ -515,6 +580,8 @@ function saveSortie(){
     ciel:document.getElementById('f-ciel').value,
     nbBrochet:nbCaps.brochet,
     nbPerche:nbCaps.perche,
+    nbSandre:nbCaps.sandre,
+    nbSilure:nbCaps.silure,
     beauxPoissons:getBPs(),
     leurresSouvenir:document.getElementById('f-leurre-souvenir').value,
     morale:morale,
@@ -553,8 +620,12 @@ function editSortie(id){
   document.getElementById('f-ciel').value=s.ciel||'';
   nbCaps.brochet=s.nbBrochet||0;
   nbCaps.perche=s.nbPerche||0;
+  nbCaps.sandre=s.nbSandre||0;
+  nbCaps.silure=s.nbSilure||0;
   document.getElementById('nb-brochet').textContent=nbCaps.brochet;
   document.getElementById('nb-perche').textContent=nbCaps.perche;
+  document.getElementById('nb-sandre').textContent=nbCaps.sandre;
+  document.getElementById('nb-silure').textContent=nbCaps.silure;
   document.getElementById('bp-list').innerHTML='';
   bpCount=0;
   if(s.beauxPoissons) s.beauxPoissons.forEach(function(bp){addBP(bp);});
@@ -589,9 +660,11 @@ function resetForm(){
   document.getElementById('f-notes').value='';
   document.getElementById('bp-list').innerHTML='';
   document.getElementById('cc-import-zone').innerHTML='';
-  nbCaps={brochet:0,perche:0};
-  document.getElementById('nb-brochet').textContent=0;
-  document.getElementById('nb-perche').textContent=0;
+  document.getElementById('meteo-zone').innerHTML='';
+  nbCaps={brochet:0,perche:0,sandre:0,silure:0};
+  ['brochet','perche','sandre','silure'].forEach(function(e){
+    document.getElementById('nb-'+e).textContent=0;
+  });
   morale=0; bpCount=0;
   for(var i=1;i<=5;i++) document.getElementById('m'+i).classList.remove('active');
   buildTimeOptions('f-hdebut','06:00');
@@ -604,18 +677,32 @@ function deleteSortie(id){
   saveToFirebase(); renderHisto();
 }
 
+// FIX: Suppression de tout l'historique
+function deleteAllSorties(){
+  if(!window.confirm('⚠️ Supprimer TOUTES les sorties ? Cette action est irréversible.')) return;
+  if(!window.confirm('Confirmation finale — effacer tout l\'historique ?')) return;
+  sorties=[];
+  saveToFirebase();
+  renderHisto();
+}
+
 // ── HISTORIQUE ──
 function renderHisto(){
   var el=document.getElementById('histo-content');
-  if(!sorties.length){el.innerHTML='<div class="empty"><div class="empty-icon">📒</div><div class="empty-txt">Aucune sortie</div></div>';return;}
+  if(!sorties.length){
+    el.innerHTML='<div class="empty"><div class="empty-icon">📒</div><div class="empty-txt">Aucune sortie</div></div>';
+    return;
+  }
   var byYear={};
   sorties.forEach(function(s){var y=s.date.split('-')[0];if(!byYear[y])byYear[y]=[];byYear[y].push(s);});
-  var html='';
+  // FIX: Bouton suppression historique complet en haut
+  var html='<div class="histo-toolbar"><button class="del-all-btn" onclick="deleteAllSorties()">🗑️ Effacer tout l\'historique</button></div>';
+
   Object.keys(byYear).sort(function(a,b){return b-a;}).forEach(function(year){
     var list=byYear[year];
     html+='<div class="year-title">'+year+'<span class="year-count">'+list.length+' sortie'+(list.length>1?'s':'')+'</span></div>';
     list.forEach(function(s){
-      var nb=(s.nbBrochet||0)+(s.nbPerche||0);
+      var nb=(s.nbBrochet||0)+(s.nbPerche||0)+(s.nbSandre||0)+(s.nbSilure||0);
       html+='<div class="sortie-card"><div class="sortie-head" onclick="toggleDetail('+s.id+')">';
       html+='<div><div class="s-date">'+fmtShort(s.date)+'</div><div class="s-lac">'+s.lac+'</div>'+(s.crew?'<div class="s-crew">👥 '+s.crew+'</div>':'')+'</div>';
       html+='<div class="s-badges">';
@@ -631,17 +718,19 @@ function renderHisto(){
       var metStr=[s.ciel,s.tair?s.tair+'°C air':'',s.vent?s.vent+' km/h':'',s.pression?s.pression+' hPa':'',s.teau?s.teau+'°C eau':''].filter(Boolean).join(' · ');
       if(metStr) html+='<div class="d-section"><div class="d-title">Conditions</div><div class="d-meteo">'+metStr+'</div></div>';
 
-      // Captures du jour
+      // Captures du jour — FIX: inclut Sandre et Silure
       var capStr=[];
       if(s.nbBrochet) capStr.push('🐟 Brochet ×'+s.nbBrochet);
       if(s.nbPerche) capStr.push('🐠 Perche ×'+s.nbPerche);
+      if(s.nbSandre) capStr.push('⚡ Sandre ×'+s.nbSandre);
+      if(s.nbSilure) capStr.push('🐉 Silure ×'+s.nbSilure);
       if(capStr.length) html+='<div class="d-section"><div class="d-title">Captures du jour</div><div style="font-size:0.82rem;font-weight:700;color:#333;">'+capStr.join(' · ')+'</div></div>';
 
-      // Beaux poissons
+      // Beaux poissons — FIX: affiche le joueur
       if(s.beauxPoissons&&s.beauxPoissons.length){
-        html+='<div class="d-section"><div class="d-title">🏆 Beaux poissons</div><table class="d-table"><thead><tr><th>Espèce</th><th>Lieu</th><th>Fond</th><th>Leurre</th><th>Taille</th></tr></thead><tbody>';
+        html+='<div class="d-section"><div class="d-title">🏆 Beaux poissons</div><table class="d-table"><thead><tr><th>Espèce</th><th>Joueur</th><th>Leurre</th><th>Taille</th></tr></thead><tbody>';
         s.beauxPoissons.forEach(function(b){
-          html+='<tr><td>'+b.espece+'</td><td>'+(b.lieu||'—')+'</td><td>'+(b.fond||'—')+'</td><td>'+(b.leurre||'—')+'</td><td>'+(b.taille?b.taille+' cm':'—')+'</td></tr>';
+          html+='<tr><td>'+(ESP_EMOJI[b.espece]||'🐟')+' '+b.espece+'</td><td>'+(b.joueur||'—')+'</td><td>'+(b.leurre||'—')+'</td><td>'+(b.taille?b.taille+' cm':'—')+'</td></tr>';
         });
         html+='</tbody></table></div>';
       }
@@ -657,39 +746,72 @@ function renderHisto(){
 
 function toggleDetail(id){var el=document.getElementById('detail-'+id);if(el)el.classList.toggle('open');}
 
-// ── STATS ──
+// ── STATS — FIX: Palmarès records + tendances par espèce ──
 function renderStats(){
   var el=document.getElementById('stats-content');
   if(!sorties.length){el.innerHTML='<div class="empty"><div class="empty-icon">📊</div><div class="empty-txt">Pas encore de données</div></div>';return;}
-  var totalBrochet=0,totalPerche=0;
-  var cLeurre={},cLieu={},cFond={};
+
+  var totalBrochet=0,totalPerche=0,totalSandre=0,totalSilure=0;
+  var cLeurre={},cJoueur={};
+  // Records par espèce: {max, date, leurre, joueur}
+  var records={Brochet:{max:0,date:'',leurre:'',joueur:''},Perche:{max:0,date:'',leurre:'',joueur:''},Sandre:{max:0,date:'',leurre:'',joueur:''},Silure:{max:0,date:'',leurre:'',joueur:''}};
+
   sorties.forEach(function(s){
     totalBrochet+=(s.nbBrochet||0);
     totalPerche+=(s.nbPerche||0);
+    totalSandre+=(s.nbSandre||0);
+    totalSilure+=(s.nbSilure||0);
+
     if(s.beauxPoissons) s.beauxPoissons.forEach(function(b){
       if(b.leurre) cLeurre[b.leurre]=(cLeurre[b.leurre]||0)+1;
-      if(b.lieu) cLieu[b.lieu]=(cLieu[b.lieu]||0)+1;
-      if(b.fond&&b.fond!=='—') cFond[b.fond]=(cFond[b.fond]||0)+1;
+      if(b.joueur) cJoueur[b.joueur]=(cJoueur[b.joueur]||0)+1;
+      // Records par espèce
+      if(b.espece&&records[b.espece]&&b.taille){
+        var t=parseFloat(b.taille);
+        if(!isNaN(t)&&t>records[b.espece].max){
+          records[b.espece]={max:t,date:s.date,leurre:b.leurre||'',joueur:b.joueur||''};
+        }
+      }
     });
   });
-  var total=totalBrochet+totalPerche;
+
+  var total=totalBrochet+totalPerche+totalSandre+totalSilure;
   var moy=sorties.length?Math.round(total/sorties.length*10)/10:0;
   var topLeurre=Object.keys(cLeurre).sort(function(a,b){return cLeurre[b]-cLeurre[a];})[0]||'—';
-  var topLieu=Object.keys(cLieu).sort(function(a,b){return cLieu[b]-cLieu[a];})[0]||'—';
-  var topFond=Object.keys(cFond).sort(function(a,b){return cFond[b]-cFond[a];})[0]||'—';
+  var topJoueur=Object.keys(cJoueur).sort(function(a,b){return cJoueur[b]-cJoueur[a];})[0]||'—';
 
   var html='<div class="slabel">Chiffres clés</div>';
   html+='<div class="stats-grid">';
   html+='<div class="stat-card"><div class="stat-val">'+sorties.length+'</div><div class="stat-lbl">Sorties</div></div>';
   html+='<div class="stat-card"><div class="stat-val">'+total+'</div><div class="stat-lbl">Captures</div></div>';
-  html+='<div class="stat-card"><div class="stat-val">'+totalBrochet+'</div><div class="stat-lbl">Brochets</div></div>';
+  html+='<div class="stat-card"><div class="stat-val">'+totalBrochet+'</div><div class="stat-lbl">🐟 Brochets</div></div>';
   html+='<div class="stat-card"><div class="stat-val">'+moy+'</div><div class="stat-lbl">Moy/sortie</div></div>';
   html+='</div>';
+  if(totalSandre||totalSilure){
+    html+='<div class="stats-grid">';
+    html+='<div class="stat-card"><div class="stat-val">'+totalSandre+'</div><div class="stat-lbl">⚡ Sandres</div></div>';
+    html+='<div class="stat-card"><div class="stat-val">'+totalSilure+'</div><div class="stat-lbl">🐉 Silures</div></div>';
+    html+='</div>';
+  }
+
+  // FIX: Palmarès records par espèce
+  html+='<div class="slabel">🏅 Records par espèce</div>';
+  [{key:'Brochet',emoji:'🐟'},{key:'Perche',emoji:'🐠'},{key:'Sandre',emoji:'⚡'},{key:'Silure',emoji:'🐉'}].forEach(function(e){
+    var r=records[e.key];
+    if(r.max>0){
+      html+='<div class="record-row">';
+      html+='<div class="record-esp">'+e.emoji+' '+e.key+'</div>';
+      html+='<div class="record-grid">';
+      html+='<div class="record-item"><div class="record-item-val">'+r.max+' cm</div><div class="record-item-lbl">Record</div></div>';
+      html+='<div class="record-item"><div class="record-item-val" style="font-size:0.78rem;">'+(r.leurre||'—')+'</div><div class="record-item-lbl">Leurre</div></div>';
+      html+='<div class="record-item"><div class="record-item-val" style="font-size:0.78rem;">'+(r.joueur||'—')+'</div><div class="record-item-lbl">Joueur</div></div>';
+      html+='</div></div>';
+    }
+  });
 
   html+='<div class="slabel">Palmarès</div>';
-  html+='<div class="best-row"><div class="best-emoji">🎣</div><div><div class="best-val">'+topLeurre+(cLeurre[topLeurre]?' — '+cLeurre[topLeurre]+' beau'+(cLeurre[topLeurre]>1?'x':''):'' )+'</div><div class="best-sub">Leurre le plus efficace (beaux poissons)</div></div></div>';
-  html+='<div class="best-row"><div class="best-emoji">📍</div><div><div class="best-val">'+topLieu+(cLieu[topLieu]?' — '+cLieu[topLieu]+' prise'+(cLieu[topLieu]>1?'s':''):'')+'</div><div class="best-sub">Lieu le plus productif</div></div></div>';
-  html+='<div class="best-row"><div class="best-emoji">🌊</div><div><div class="best-val">'+topFond+'</div><div class="best-sub">Fond / profondeur le plus productif</div></div></div>';
+  html+='<div class="best-row"><div class="best-emoji">🎣</div><div><div class="best-val">'+topLeurre+(cLeurre[topLeurre]?' — '+cLeurre[topLeurre]+' beau'+(cLeurre[topLeurre]>1?'x':''):'')+'</div><div class="best-sub">Leurre le plus efficace</div></div></div>';
+  html+='<div class="best-row"><div class="best-emoji">👤</div><div><div class="best-val">'+topJoueur+(cJoueur[topJoueur]?' — '+cJoueur[topJoueur]+' beau'+(cJoueur[topJoueur]>1?'x poisson':' poisson'):'')+'</div><div class="best-sub">Pêcheur le plus actif</div></div></div>';
 
   // Top leurres
   var lSorted=Object.keys(cLeurre).sort(function(a,b){return cLeurre[b]-cLeurre[a];}).slice(0,5);
@@ -700,6 +822,23 @@ function renderStats(){
     });
   }
 
+  // FIX: Tendances par espèce (répartition)
+  if(total>0){
+    html+='<div class="slabel">📈 Tendances par espèce</div>';
+    [{key:'brochet',label:'🐟 Brochet',val:totalBrochet},
+     {key:'perche', label:'🐠 Perche', val:totalPerche},
+     {key:'sandre', label:'⚡ Sandre', val:totalSandre},
+     {key:'silure', label:'🐉 Silure', val:totalSilure}
+    ].filter(function(e){return e.val>0;}).forEach(function(e){
+      var pct=Math.round(e.val/total*100);
+      html+='<div class="trend-card">';
+      html+='<div class="trend-esp">'+e.label+' — '+e.val+' capture'+(e.val>1?'s':'')+' ('+pct+'%)</div>';
+      html+='<div class="trend-bar-wrap"><div class="trend-bar" style="width:'+pct+'%"></div></div>';
+      html+='<div class="trend-lbl"><span>0</span><span>'+total+'</span></div>';
+      html+='</div>';
+    });
+  }
+
   // Par année
   html+='<div class="slabel">Par saison</div>';
   var byYear={};
@@ -707,7 +846,7 @@ function renderStats(){
     var y=s.date.split('-')[0];
     if(!byYear[y])byYear[y]={sorties:0,prises:0};
     byYear[y].sorties++;
-    byYear[y].prises+=(s.nbBrochet||0)+(s.nbPerche||0);
+    byYear[y].prises+=(s.nbBrochet||0)+(s.nbPerche||0)+(s.nbSandre||0)+(s.nbSilure||0);
   });
   Object.keys(byYear).sort(function(a,b){return b-a;}).forEach(function(y){
     html+='<div class="best-row"><div class="best-emoji">📅</div><div><div class="best-val">'+y+' — '+byYear[y].sorties+' sortie'+(byYear[y].sorties>1?'s':'')+'</div><div class="best-sub">'+byYear[y].prises+' capture'+(byYear[y].prises>1?'s':'')+' · moy '+(Math.round(byYear[y].prises/byYear[y].sorties*10)/10)+'/sortie</div></div></div>';
@@ -773,8 +912,7 @@ function parseBlock(txt){
   var moraleRaw=get(['Morale du jour','morale du jour']);
   var anecdoteRaw=get(['Anecdote','anecdote','Note']);
 
-  // Captures
-  var nbBrochet=0,nbPerche=0;
+  var nbBrochet=0,nbPerche=0,nbSandre=0,nbSilure=0;
   var beauxPoissons=[];
   var espLines=txt.match(/espèce\s*[\n\r]+([^\n\r]*)/gi)||[];
   var tailleLines=txt.match(/taille\s*[\n\r]+([^\n\r]*)/gi)||[];
@@ -787,13 +925,15 @@ function parseBlock(txt){
     var nb=nbMatch?parseInt(nbMatch[1]):1;
     if(espece==='Brochet') nbBrochet+=nb;
     if(espece==='Perche') nbPerche+=nb;
+    if(espece==='Sandre') nbSandre+=nb;
+    if(espece==='Silure') nbSilure+=nb;
     if(tailleLines[i]){
       var tailleRaw=tailleLines[i].replace(/taille\s*[\n\r]+/i,'').trim();
       if(tailleRaw){
         var tailles=tailleRaw.match(/\d+/g);
         if(tailles){
           var gros=Math.max.apply(null,tailles.map(Number));
-          beauxPoissons.push({espece:espece,lieu:'',fond:'',leurre:leurreRaw||'',taille:gros.toString()});
+          beauxPoissons.push({espece:espece,joueur:'',leurre:leurreRaw||'',taille:gros.toString()});
         }
       }
     }
@@ -803,7 +943,7 @@ function parseBlock(txt){
     id:Date.now()+Math.random(),
     date:date,lac:lac,hdebut:hdebut,hfin:hfin,crew:crew,
     tair:tair,vent:vent,pression:'',teau:teau,ciel:ciel,
-    nbBrochet:nbBrochet,nbPerche:nbPerche,
+    nbBrochet:nbBrochet,nbPerche:nbPerche,nbSandre:nbSandre,nbSilure:nbSilure,
     beauxPoissons:beauxPoissons,
     leurresSouvenir:leurreRaw||'',
     morale:0,moraleTxt:moraleRaw||'',
@@ -834,6 +974,8 @@ function normaliseEspece(s){
   s=s.toLowerCase();
   if(s.indexOf('brochet')>-1) return 'Brochet';
   if(s.indexOf('perche')>-1) return 'Perche';
+  if(s.indexOf('sandre')>-1) return 'Sandre';
+  if(s.indexOf('silure')>-1) return 'Silure';
   return null;
 }
 
@@ -885,7 +1027,7 @@ window.addEventListener('load',function(){
 
           db.ref('.info/connected').on('value',function(snap){
             var el=document.getElementById('syncStatus');
-            if(el){el.textContent=snap.val()?'🟢 Synchronisé':'🔴 Hors ligne';el.style.color=snap.val()?'#3a8a30':'#c0431a';}
+            if(el){el.textContent=snap.val()?'🟢 Synchronisé':'🔴 Hors ligne';el.style.color=snap.val()?'#3a8a30':'#c05050';}
           });
 
           dbRef.on('value',function(snap){
