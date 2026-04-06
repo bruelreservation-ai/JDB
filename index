@@ -170,11 +170,6 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
 
   <div class="card">
     <div class="card-title">🌤️ Météo & Eau</div>
-    <div class="fetch-row">
-      <button class="fetch-btn" onclick="fetchMeteo()">🔄 Météo auto</button>
-      <span style="font-size:0.62rem;color:#bbb;">basée sur la date</span>
-    </div>
-    <div id="meteo-zone"></div>
     <div class="g3">
       <div class="form-row"><label>T° air</label><input type="number" class="inp" id="f-tair" placeholder="°C"/></div>
       <div class="form-row"><label>Vent km/h</label><input type="number" class="inp" id="f-vent" placeholder="km/h"/></div>
@@ -593,7 +588,6 @@ function resetForm(){
   document.getElementById('f-morale-txt').value='';
   document.getElementById('f-notes').value='';
   document.getElementById('bp-list').innerHTML='';
-  document.getElementById('meteo-zone').innerHTML='';
   document.getElementById('cc-import-zone').innerHTML='';
   nbCaps={brochet:0,perche:0};
   document.getElementById('nb-brochet').textContent=0;
