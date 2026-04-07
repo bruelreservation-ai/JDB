@@ -628,7 +628,7 @@ function renderHisto(){
   var el=document.getElementById('histo-content');
   if(!sorties.length){el.innerHTML='<div class="empty"><div class="empty-icon">📒</div><div class="empty-txt">Aucune sortie</div></div>';return;}
   var byYear={};sorties.forEach(function(s){var y=s.date.split('-')[0];if(!byYear[y])byYear[y]=[];byYear[y].push(s);});
-  var html='<div class="histo-toolbar"><button class="del-all-btn" onclick="deleteAllSorties()">🗑️ Effacer tout</button></div>';
+  var html='';
   Object.keys(byYear).sort(function(a,b){return b-a;}).forEach(function(year){
     var list=byYear[year];
     html+='<div class="year-title">'+year+'<span class="year-count">'+list.length+' sortie'+(list.length>1?'s':'')+'</span></div>';
