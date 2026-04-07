@@ -21,10 +21,10 @@ body { background:#f5f8fa; color:#111; font-family:system-ui,-apple-system,sans-
 .card-title { font-size:0.72rem; font-weight:800; letter-spacing:3px; color:#888; margin-bottom:12px; text-transform:uppercase; }
 .form-row { margin-bottom:10px; }
 .form-row label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:2px; color:#999; margin-bottom:4px; text-transform:uppercase; }
-.inp { width:100%; padding:8px 11px; border:1px solid #ddd; border-radius:8px; font-size:0.88rem; color:#111; font-family:system-ui,-apple-system,sans-serif; outline:none; background:#fafafa; }
-.inp:focus { border-color:#1a6a9a; background:#fff; }
-.sel { width:100%; padding:8px 11px; border:1px solid #ddd; border-radius:8px; font-size:0.88rem; color:#111; font-family:system-ui,-apple-system,sans-serif; outline:none; background:#fafafa; }
-textarea.inp { resize:vertical; min-height:60px; }
+.inp { width:100%; padding:8px 11px; border:1px solid #ddd; border-radius:8px; font-size:0.88rem; color:#111; font-family:system-ui,-apple-system,sans-serif; outline:none; background:#fafafa; box-sizing:border-box; height:42px; }
+input[type=date].inp { -webkit-appearance:none; appearance:none; height:42px; padding:8px 11px; line-height:normal; }
+textarea.inp { height:auto; min-height:60px; resize:vertical; }
+.sel { width:100%; padding:8px 11px; border:1px solid #ddd; border-radius:8px; font-size:0.88rem; color:#111; font-family:system-ui,-apple-system,sans-serif; outline:none; background:#fafafa; box-sizing:border-box; height:42px; }
 .g2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
 .ac-wrap { position:relative; }
@@ -230,7 +230,7 @@ footer { text-align:center; font-size:0.5rem; letter-spacing:4px; color:#ccc; pa
         <input type="date" class="inp" id="f-date"
           onchange="onDateChange();this.blur();"
           onkeydown="if(event.key==='Enter'||event.key==='Tab'){this.blur();onDateChange();}"
-          style="font-size:0.88rem;padding:8px 11px;"/>
+/>
       </div>
       <div class="form-row"><label>Lieu</label>
         <select class="sel" id="f-lac" onchange="onLacChange()">
