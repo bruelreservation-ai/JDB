@@ -356,6 +356,7 @@ var ESPECES_STD=['Brochet','Perche','Sandre','Silure'];
 var ESPECES_IBERIA=['Brochet','Perche','Sandre','Silure','Black Bass'];
 var ESP_EMOJI={Brochet:'🐟',Perche:'🐠',Sandre:'⚡',Silure:'🐉','Black Bass':'🎸',Autre:'🐟'};
 var JOUEURS=['Guillaume','Kevin','Mickael'];
+var JOUEURS_IBERIA=['Guillaume','Antoine'];
 var FONDS=['—','Bordures / Berges','Herbiers 0-3m','Herbiers 3-5m',"Tapis d'herbes 5-6m",'Cassure 6-8m','Cassure 8-10m','Cassure 10-12m','Cassure 12-15m','Profond 10-12m','Profond 12-15m'];
 
 var sorties=[],morale=0,bpCount=0;
@@ -430,7 +431,11 @@ function onDateChange(){checkCCImport();checkIberiaImport();}
 function changeCap(esp,d){nbCaps[esp]=Math.max(0,(nbCaps[esp]||0)+d);document.getElementById('nb-'+esp).textContent=nbCaps[esp];}
 function getEspeces(){var lac=document.getElementById('f-lac')?document.getElementById('f-lac').value:'';return isIberia(lac)?ESPECES_IBERIA:ESPECES_STD;}
 function espOpts(selected){return getEspeces().map(function(e){return '<option'+(e===selected?' selected':'')+'>'+e+'</option>';}).join('');}
-function joueurOpts(sel){return '<option value="">—</option>'+JOUEURS.map(function(j){return '<option'+(j===sel?' selected':'')+'>'+j+'</option>';}).join('');}
+function joueurOpts(sel){
+  var lac=document.getElementById('f-lac')?document.getElementById('f-lac').value:'';
+  var liste=isIberia(lac)?['Guillaume','Kevin','Mickael','Antoine']:['Guillaume','Kevin','Mickael'];
+  return '<option value="">—</option>'+liste.map(function(j){return '<option'+(j===sel?' selected':'')+'>'+j+'</option>';}).join('');
+}
 function fondsOpts(selected){return FONDS.map(function(f){return '<option'+(f===selected?' selected':'')+'>'+f+'</option>';}).join('');}
 
 // ══ BEAUX POISSONS ══
@@ -496,7 +501,7 @@ function importFromIberia(){
   var date=document.getElementById('f-date').value;
   var day=iberiaData.find(function(d){return d.dateISO===date;});if(!day)return;
   var tb=0,tp=0;
-  day.anglers.forEach(function(a,i){var n=JOUEURS[i]||'Joueur '+(i+1);if(a.counts){tb+=(a.counts.bass||0);tp+=(a.counts.pike||0);}if(a.sizes){if(a.sizes.bass&&parseFloat(a.sizes.bass)>0)addBP({espece:'Black Bass',joueur:n,taille:a.sizes.bass,leurre:'',lieu:'',fond:''});if(a.sizes.pike&&parseFloat(a.sizes.pike)>0)addBP({espece:'Brochet',joueur:n,taille:a.sizes.pike,leurre:'',lieu:'',fond:''});}});
+  day.anglers.forEach(function(a,i){var n=JOUEURS_IBERIA[i]||'Joueur '+(i+1);if(a.counts){tb+=(a.counts.bass||0);tp+=(a.counts.pike||0);}if(a.sizes){if(a.sizes.bass&&parseFloat(a.sizes.bass)>0)addBP({espece:'Black Bass',joueur:n,taille:a.sizes.bass,leurre:'',lieu:'',fond:''});if(a.sizes.pike&&parseFloat(a.sizes.pike)>0)addBP({espece:'Brochet',joueur:n,taille:a.sizes.pike,leurre:'',lieu:'',fond:''});}});
   if(tb>0){nbCaps.bass+=tb;document.getElementById('nb-bass').textContent=nbCaps.bass;}
   if(tp>0){nbCaps.brochet+=tp;document.getElementById('nb-brochet').textContent=nbCaps.brochet;}
   document.getElementById('cc-import-zone').innerHTML='<div style="font-size:0.72rem;color:#1a7a30;margin-bottom:8px;">✅ Iberia Cup importé — '+tb+' bass · '+tp+' brochet(s)</div>';
@@ -649,15 +654,25 @@ function renderStats(){
   var data=getSortiesFiltrees();
   if(!data.length){el.innerHTML=html+'<div class="empty"><div class="empty-icon">📊</div><div class="empty-txt">Pas de données pour ce filtre</div></div>';return;}
 
-  var tb=0,tp=0,ts=0,tsi=0,tba=0,cLeurre={};
+  var tb=0,tp=0,ts=0,tsi=0,tba=0;
+  // Leurres par espece: {'Brochet': {leurre: count}, ...}
+  var cLeurreEsp={Brochet:{},Perche:{},Sandre:{},Silure:{},'Black Bass':{}};
   var recG={Brochet:{max:0,date:'',leurre:''},Perche:{max:0,date:'',leurre:''},Sandre:{max:0,date:'',leurre:''},'Black Bass':{max:0,date:'',leurre:''}};
   var recA={Brochet:{max:0,date:'',leurre:'',joueur:''},Perche:{max:0,date:'',leurre:'',joueur:''},Sandre:{max:0,date:'',leurre:'',joueur:''},'Black Bass':{max:0,date:'',leurre:'',joueur:''}};
 
   data.forEach(function(s){
     tb+=(s.nbBrochet||0);tp+=(s.nbPerche||0);ts+=(s.nbSandre||0);tsi+=(s.nbSilure||0);tba+=(s.nbBass||0);
-    if(s.leurresSouvenir&&s.leurresSouvenir.trim())cLeurre[s.leurresSouvenir.trim()]=(cLeurre[s.leurresSouvenir.trim()]||0)+2;
+    // Leurre souvenir: on l'associe à toutes les especes capturées ce jour-là
     if(s.beauxPoissons)s.beauxPoissons.forEach(function(b){
-      if(b.leurre&&b.leurre.trim())cLeurre[b.leurre.trim()]=(cLeurre[b.leurre.trim()]||0)+1;
+      if(b.leurre&&b.leurre.trim()&&b.espece&&cLeurreEsp[b.espece]!==undefined){
+        var k=b.leurre.trim();
+        cLeurreEsp[b.espece][k]=(cLeurreEsp[b.espece][k]||0)+1;
+      }
+      // Leurre souvenir associé à l'espèce du beau poisson si même jour
+      if(s.leurresSouvenir&&s.leurresSouvenir.trim()&&b.espece&&cLeurreEsp[b.espece]!==undefined){
+        var ks=s.leurresSouvenir.trim();
+        if(!cLeurreEsp[b.espece][ks]) cLeurreEsp[b.espece][ks]=(cLeurreEsp[b.espece][ks]||0)+1;
+      }
       if(b.espece&&b.taille){
         var t=parseFloat(b.taille);if(isNaN(t))return;
         if(recA[b.espece]!==undefined&&t>recA[b.espece].max)recA[b.espece]={max:t,date:s.date,leurre:b.leurre||'',joueur:b.joueur||''};
@@ -691,23 +706,36 @@ function renderStats(){
     html+='</div></div>';
   });
 
-  var lSorted=Object.keys(cLeurre).sort(function(a,b){return cLeurre[b]-cLeurre[a];});
-  if(lSorted.length){
-    html+='<div class="slabel">🎣 Top leurres</div>';
-    var medals=['🥇','🥈','🥉'],top3=lSorted.slice(0,3),rest=lSorted.slice(3);
-    top3.forEach(function(l,i){html+='<div class="best-row"><div class="best-emoji">'+medals[i]+'</div><div><div class="best-val">'+l+'</div><div class="best-sub">'+cLeurre[l]+' beau'+(cLeurre[l]>1?'x poisson':' poisson')+'</div></div></div>';});
-    if(rest.length){
-      html+='<div class="top-leurres-wrap"><div class="top-leurres-head" onclick="toggleLeurresList()">';
-      html+='<span style="font-size:0.78rem;font-weight:700;color:#1a6a9a;">+ '+rest.length+' autre'+(rest.length>1?'s':'')+' leurre'+(rest.length>1?'s':'')+'</span>';
-      html+='<span id="leurre-toggle-icon" style="margin-left:auto;font-size:0.72rem;color:#1a6a9a;">▼</span></div>';
-      html+='<div class="top-leurres-more" id="leurres-more">';
-      rest.forEach(function(l){html+='<div class="leurre-item"><div class="leurre-rank">🎣</div><div><div class="leurre-name">'+l+'</div><div class="leurre-count">'+cLeurre[l]+' beau'+(cLeurre[l]>1?'x poisson':' poisson')+'</div></div></div>';});
-      html+='</div></div>';
-    }
+  // ── Top leurres PAR ESPÈCE ──
+  var espTopConfig=[{key:'Brochet',emoji:'🐟'},{key:'Perche',emoji:'🐠'},{key:'Sandre',emoji:'⚡'},{key:'Silure',emoji:'🐉'},{key:'Black Bass',emoji:'🎸'}];
+  var hasAnyLeurre=espTopConfig.some(function(e){return Object.keys(cLeurreEsp[e.key]||{}).length>0;});
+  if(hasAnyLeurre){
+    html+='<div class="slabel">🎣 Top leurres par espèce</div>';
+    espTopConfig.forEach(function(e,espIdx){
+      var cnt=cLeurreEsp[e.key]||{};
+      var lSorted=Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a];});
+      if(!lSorted.length)return;
+      var top3=lSorted.slice(0,3),rest=lSorted.slice(3);
+      var medals=['🥇','🥈','🥉'];
+      html+='<div style="margin-bottom:4px;font-size:0.62rem;font-weight:800;letter-spacing:2px;color:#888;text-transform:uppercase;padding:6px 0 2px;">'+e.emoji+' '+e.key+'</div>';
+      top3.forEach(function(l,i){
+        html+='<div class="best-row" style="padding:8px 13px;margin-bottom:4px;"><div class="best-emoji" style="font-size:1.1rem;">'+medals[i]+'</div><div><div class="best-val">'+l+'</div><div class="best-sub">'+cnt[l]+' beau'+(cnt[l]>1?'x poisson':' poisson')+'</div></div></div>';
+      });
+      if(rest.length){
+        var uid='leurres-more-'+espIdx;
+        html+='<div class="top-leurres-wrap" style="margin-bottom:10px;"><div class="top-leurres-head" data-uid="'+uid+'" onclick="toggleLeurresListEsp(this.dataset.uid)">';
+        html+='<span style="font-size:0.75rem;font-weight:700;color:#1a6a9a;">+ '+rest.length+' autre'+(rest.length>1?'s':'')+'</span>';
+        html+='<span id="icon-'+uid+'" style="margin-left:auto;font-size:0.72rem;color:#1a6a9a;">▼</span></div>';
+        html+='<div class="top-leurres-more" id="'+uid+'">';
+        rest.forEach(function(l){html+='<div class="leurre-item"><div class="leurre-rank">🎣</div><div><div class="leurre-name">'+l+'</div><div class="leurre-count">'+cnt[l]+' beau'+(cnt[l]>1?'x poisson':' poisson')+'</div></div></div>';});
+        html+='</div></div>';
+      }
+    });
   }
   el.innerHTML=html;
 }
 function toggleLeurresList(){var m=document.getElementById('leurres-more'),ic=document.getElementById('leurre-toggle-icon');if(m){m.classList.toggle('open');if(ic)ic.textContent=m.classList.contains('open')?'▲':'▼';}}
+function toggleLeurresListEsp(uid){var m=document.getElementById(uid),ic=document.getElementById('icon-'+uid);if(m){m.classList.toggle('open');if(ic)ic.textContent=m.classList.contains('open')?'▲':'▼';}}
 
 // ══ PRÉPARATION ══
 function renderPrep(){
