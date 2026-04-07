@@ -411,12 +411,41 @@ function getSpotsSuggestions(lac,val){var all=getSpotsHistorique(lac);if(!val)re
 function showAC(inputId,listId,suggestions){
   var list=document.getElementById(listId);if(!list)return;
   if(!suggestions.length){list.classList.remove('open');return;}
-  list.innerHTML=suggestions.map(function(s){return '<div class="ac-item" onmousedown="pickAC(\''+inputId+'\',\''+listId+'\','+JSON.stringify(s)+')">'+s+'</div>';}).join('');
+  // Utilise data-val pour éviter tout problème d'échappement dans onmousedown
+  list.innerHTML=suggestions.map(function(s){
+    var item=document.createElement('div');
+    item.className='ac-item';
+    item.textContent=s;
+    item.dataset.inputId=inputId;
+    item.dataset.listId=listId;
+    item.dataset.val=s;
+    return item.outerHTML;
+  }).join('');
   list.classList.add('open');
 }
 function hideAC(listId){var el=document.getElementById(listId);if(el)el.classList.remove('open');}
-function pickAC(inputId,listId,val){var inp=document.getElementById(inputId);if(inp)inp.value=val;hideAC(listId);}
-document.addEventListener('click',function(e){document.querySelectorAll('.ac-list').forEach(function(l){if(!l.contains(e.target))l.classList.remove('open');});});
+function pickAC(inputId,listId,val){var inp=document.getElementById(inputId);if(inp){inp.value=val;inp.dispatchEvent(new Event('input'));}hideAC(listId);}
+
+// Délégation d'événements — capture mousedown ET touchstart pour mobile
+document.addEventListener('mousedown',function(e){
+  var item=e.target.closest('.ac-item');
+  if(item&&item.dataset.val!==undefined){
+    e.preventDefault();
+    pickAC(item.dataset.inputId,item.dataset.listId,item.dataset.val);
+  }
+});
+document.addEventListener('touchstart',function(e){
+  var item=e.target.closest('.ac-item');
+  if(item&&item.dataset.val!==undefined){
+    e.preventDefault();
+    pickAC(item.dataset.inputId,item.dataset.listId,item.dataset.val);
+  }
+},{passive:false});
+// Fermer si clic ailleurs
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.ac-wrap'))
+    document.querySelectorAll('.ac-list').forEach(function(l){l.classList.remove('open');});
+});
 
 // ══ MODALE ANNULER ══
 function openCancelModal(){var inp=document.getElementById('cancel-modal-inp');inp.value='';inp.classList.remove('valid');document.getElementById('cancel-modal-btn').classList.remove('ready');document.getElementById('cancel-modal').classList.remove('hidden');setTimeout(function(){inp.focus();},80);}
