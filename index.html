@@ -711,11 +711,6 @@ function renderStats(){
         var k=b.leurre.trim();
         cLeurreEsp[b.espece][k]=(cLeurreEsp[b.espece][k]||0)+1;
       }
-      // Leurre souvenir associé à l'espèce du beau poisson si même jour
-      if(s.leurresSouvenir&&s.leurresSouvenir.trim()&&b.espece&&cLeurreEsp[b.espece]!==undefined){
-        var ks=s.leurresSouvenir.trim();
-        if(!cLeurreEsp[b.espece][ks]) cLeurreEsp[b.espece][ks]=(cLeurreEsp[b.espece][ks]||0)+1;
-      }
       if(b.espece&&b.taille){
         var t=parseFloat(b.taille);if(isNaN(t))return;
         if(recA[b.espece]!==undefined&&t>recA[b.espece].max)recA[b.espece]={max:t,date:s.date,leurre:b.leurre||'',joueur:b.joueur||''};
