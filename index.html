@@ -433,7 +433,7 @@ function getEspeces(){var lac=document.getElementById('f-lac')?document.getEleme
 function espOpts(selected){return getEspeces().map(function(e){return '<option'+(e===selected?' selected':'')+'>'+e+'</option>';}).join('');}
 function joueurOpts(sel){
   var lac=document.getElementById('f-lac')?document.getElementById('f-lac').value:'';
-  var liste=isIberia(lac)?['Guillaume','Kevin','Mickael','Antoine']:['Guillaume','Kevin','Mickael'];
+  var liste=['Guillaume','Kevin','Mickael','Antoine'];
   return '<option value="">—</option>'+liste.map(function(j){return '<option'+(j===sel?' selected':'')+'>'+j+'</option>';}).join('');
 }
 function fondsOpts(selected){return FONDS.map(function(f){return '<option'+(f===selected?' selected':'')+'>'+f+'</option>';}).join('');}
