@@ -699,7 +699,7 @@ function renderStats(){
   [{key:'Brochet',emoji:'🐟'},{key:'Perche',emoji:'🐠'},{key:'Sandre',emoji:'⚡'},{key:'Black Bass',emoji:'🎸'}].forEach(function(e){
     var rA=recA[e.key],rG=recG[e.key];if(rA.max<=0)return;
     html+='<div class="record-row"><div class="record-esp">'+e.emoji+' '+e.key+'</div><div class="record-grid">';
-    html+='<div class="record-item"><div class="record-item-val">'+(rG.max>0?rG.max+' cm':'—')+'</div><div class="record-item-lbl">Perso Guillaume</div></div>';
+    html+='<div class="record-item"><div class="record-item-val">'+(rG.max>0?rG.max+' cm':'—')+'</div><div class="record-item-lbl">Perso Guillaume</div>'+(rG.max>0&&rG.date?'<div style="font-size:0.5rem;color:#bbb;margin-top:1px;">'+fmtShort(rG.date)+'</div>':'')+'</div>';
     html+='<div class="record-item"><div class="record-item-val">'+rA.max+' cm</div><div class="record-item-lbl">Record absolu</div></div>';
     html+='<div class="record-item"><div class="record-item-val" style="font-size:0.78rem;">'+(rA.joueur||'—')+'</div><div class="record-item-lbl">Par</div></div>';
     html+='<div class="record-item"><div class="record-item-val" style="font-size:0.7rem;">'+(rA.leurre||'—')+'</div><div class="record-item-lbl">Leurre</div></div>';
