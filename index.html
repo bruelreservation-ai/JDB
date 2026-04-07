@@ -393,6 +393,17 @@ function getSpotsHistorique(lac){
   });
   return Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a];});
 }
+function getFondsHistorique(){
+  var cnt={};
+  FONDS.filter(function(f){return f!=='—';}).forEach(function(f){cnt[f]=cnt[f]||0;});
+  sorties.forEach(function(s){
+    if(s.beauxPoissons)s.beauxPoissons.forEach(function(b){
+      if(b.fond&&b.fond.trim()&&b.fond!=='—'){var k=b.fond.trim();cnt[k]=(cnt[k]||0)+1;}
+    });
+  });
+  return Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a];});
+}
+function getFondsSuggestions(val){var all=getFondsHistorique();if(!val)return all.slice(0,7);val=val.toLowerCase();return all.filter(function(f){return f.toLowerCase().indexOf(val)>-1;}).slice(0,8);}
 function getLeurresSuggestions(val){var all=getLeurresHistorique();if(!val)return all.slice(0,6);val=val.toLowerCase();return all.filter(function(l){return l.toLowerCase().indexOf(val)>-1;}).slice(0,8);}
 function getSpotsSuggestions(lac,val){var all=getSpotsHistorique(lac);if(!val)return all.slice(0,6);val=val.toLowerCase();return all.filter(function(s){return s.toLowerCase().indexOf(val)>-1;}).slice(0,8);}
 
@@ -450,7 +461,10 @@ function addBP(d){
     +' oninput="showAC(\'bspot-'+id+'\',\'acspot-'+id+'\',getSpotsSuggestions(document.getElementById(\'f-lac\').value,this.value))"'
     +' onfocus="showAC(\'bspot-'+id+'\',\'acspot-'+id+'\',getSpotsSuggestions(document.getElementById(\'f-lac\').value,this.value))"/>'
     +'<div class="ac-list" id="acspot-'+id+'"></div></div></div>'
-    +'<div><label>Fond</label><select class="sel" id="bfond-'+id+'">'+fondsOpts(d.fond||'')+'</select></div>'
+    +'<div><label>Fond</label><div class="ac-wrap"><input class="inp" type="text" id="bfond-'+id+'" placeholder="Fond / profondeur…" value="'+(d.fond&&d.fond!=='—'?d.fond:'')+'" autocomplete="off"'
+    +' oninput="showAC(\'bfond-'+id+'\',\'acfond-'+id+'\',getFondsSuggestions(this.value))"'
+    +' onfocus="showAC(\'bfond-'+id+'\',\'acfond-'+id+'\',getFondsSuggestions(this.value))"/>'
+    +'<div class="ac-list" id="acfond-'+id+'"></div></div></div>'
     +'</div><div class="bp-form-row">'
     +'<div><label>Leurre</label><div class="ac-wrap"><input class="inp" type="text" id="bleurre-'+id+'" placeholder="Leurre…" value="'+(d.leurre||'')+'" autocomplete="off"'
     +' oninput="showAC(\'bleurre-'+id+'\',\'acleurre-'+id+'\',getLeurresSuggestions(this.value))"'
